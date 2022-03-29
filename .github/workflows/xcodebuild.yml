@@ -9,7 +9,7 @@ jobs:
 
   cleanBuild:
     name: Clean & Build
-    runs-on: self-hosted
+    runs-on: macos-latest
     strategy:
       matrix:
         destination: ['platform=iOS Simulator,OS=15.2,name=iPhone 11']
