@@ -1,0 +1,77 @@
+//
+//  NetworkingService.swift
+//  Github
+//
+//  Created by Renato F. dos Santos Jr on 29/03/22.
+//
+
+import Foundation
+import Alamofire
+
+// TODO: Create enum GetRepositoriesServiceError: NetworkingServiceError
+// TODO: Inherit from LocalizedError
+enum NetworkingServiceError: LocalizedError {
+    case urlInvalid
+    case requestError(_ description: String)
+    case noDataAvailable
+    
+    var localizedError: String {
+        switch self {
+        case .urlInvalid:
+            return "urlInvalid"
+        case .requestError(description: let description):
+            return "Error on Request: \(description)"
+        case .noDataAvailable:
+            return "No Data Available"
+        }
+    }
+}
+
+protocol AppBaseModel: Codable {
+    
+}
+
+protocol AppBaseEndpoint {
+    /*
+     urlPath
+     query
+     queryParams: language, stars, ascd/desc
+     method
+     headers
+     */
+}
+
+protocol NetworkingServiceProtocol {
+    func request(url: String,
+                 method: String,
+                 completion: @escaping(Result<GithubRepositories, NetworkingServiceError>) -> Void)
+}
+
+final class NetworkingService: NetworkingServiceProtocol {
+    
+    func request(url: String, method: String, completion: @escaping (Result<GithubRepositories, NetworkingServiceError>) -> Void) {
+//        guard let url = urlBuilder(urlPath: url) else {
+//            completion(.failure(.urlInvalid))
+//            return
+//        }
+        
+        // TODO: Refactor
+        AF.request(url, method: .get).validate().responseDecodable(of: GithubRepositories.self) { response in
+            
+            switch response.result {
+            case let .success(data):
+                completion(.success(data))
+            case let .failure(error):
+                completion(.failure(.requestError(error.localizedDescription)))
+            }
+        }
+    }
+    
+    private func urlBuilder(urlPath: String) -> URL? {
+        guard let urlPathQueryEncoding = urlPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let url = URL(string: urlPathQueryEncoding) else {
+                  return nil
+              }
+        return url
+    }
+}
