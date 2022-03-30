@@ -31,11 +31,8 @@ final class GithubApi: GithubApiRepositoriesProtocol {
     
     func getRepositories(completion: @escaping (Result<GithubRepositories, NetworkingServiceError>) -> Void) {
         networking.request(url: url, method: "") { response in
-            
-            print(response)
             switch response {
             case .success(let respositories):
-                print(respositories)
                 completion(.success(respositories))
 //            case .failure():
 //                completion(.failure(.requestError))
