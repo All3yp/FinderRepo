@@ -14,7 +14,7 @@ enum NetworkingServiceError: LocalizedError {
     case urlInvalid
     case requestError(_ description: String)
     case noDataAvailable
-    
+
     var localizedError: String {
         switch self {
         case .urlInvalid:
@@ -41,14 +41,48 @@ protocol AppBaseEndpoint {
      */
 }
 
-protocol NetworkingServiceProtocol {
+protocol DeprecatedNetworkingServiceProtocol {
     func request(url: String,
                  method: String,
                  completion: @escaping(Result<GithubRepositories, NetworkingServiceError>) -> Void)
 }
 
+protocol NetworkingServiceProtocol {
+    func genericRequest<T:Codable>(url: String,
+                                   method:String,
+                                   of type: T.Type,
+                                   completion: @escaping(Result<T, NetworkingServiceError>) -> Void)
+}
+
 final class NetworkingService: NetworkingServiceProtocol {
-    
+
+    private func urlBuilder(urlPath: String) -> URL? {
+        guard let urlPathQueryEncoding = urlPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let url = URL(string: urlPathQueryEncoding) else {
+                  return nil
+              }
+        return url
+    }
+
+    func genericRequest<T>(url: String,
+                           method: String,
+                           of type: T.Type,
+                           completion: @escaping (Result<T, NetworkingServiceError>) -> Void) where T : Decodable, T : Encodable {
+        // TODO: Validate URL
+        AF.request(url, method: .get).validate().responseDecodable(of: T.self) { response in
+
+            switch response.result {
+            case let .success(data):
+                completion(.success(data))
+            case let .failure(error):
+                completion(.failure(.requestError(error.localizedDescription)))
+            }
+        }
+    }
+}
+
+
+final class DeprecatedNetworkingService: DeprecatedNetworkingServiceProtocol {
     func request(url: String, method: String, completion: @escaping (Result<GithubRepositories, NetworkingServiceError>) -> Void) {
 //        guard let url = urlBuilder(urlPath: url) else {
 //            completion(.failure(.urlInvalid))
@@ -65,13 +99,5 @@ final class NetworkingService: NetworkingServiceProtocol {
                 completion(.failure(.requestError(error.localizedDescription)))
             }
         }
-    }
-    
-    private func urlBuilder(urlPath: String) -> URL? {
-        guard let urlPathQueryEncoding = urlPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: urlPathQueryEncoding) else {
-                  return nil
-              }
-        return url
     }
 }
