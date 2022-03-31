@@ -365,6 +365,7 @@
 				1871961027EBBE2E0019B07D /* HomeViewController.swift in Sources */,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				9F6C0EDB27F5D19D008B49BB /* ManagedObjectContext.swift in Sources */,
 				9F6C0EDD27F5F3AE008B49BB /* FavoriteRepository.swift in Sources */,
 =======
@@ -378,6 +379,13 @@
 =======
 				18C1DB0927F6402400051EAB /* FavoritesViewController.swift in Sources */,
 >>>>>>> 88c04c2 (feat: Create tabbar controller on project)
+=======
+				18C1DB0927F6402400051EAB /* FavoritesViewController.swift in Sources */,
+=======
+				9F6C0EDB27F5D19D008B49BB /* ManagedObjectContext.swift in Sources */,
+				9F6C0EDD27F5F3AE008B49BB /* FavoriteRepository.swift in Sources */,
+>>>>>>> 970b826 (feat: add model FavoriteRepository)
+>>>>>>> 9a85310 (feat: add model FavoriteRepository)
 				1871960C27EBBE2E0019B07D /* AppDelegate.swift in Sources */,
 				18C1DB0B27F640C500051EAB /* TeamDevViewController.swift in Sources */,
 				18C1DB0727F63FBF00051EAB /* CustomTabBarController.swift in Sources */,
