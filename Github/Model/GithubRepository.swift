@@ -11,7 +11,7 @@ import Foundation
 struct GithubRepositories: Codable {
     let totalCount: Int
     let incompleteResults: Bool
-    let items: [Item]
+    let items: [GithubRepository]
 
     enum CodingKeys: String, CodingKey {
         case totalCount = "total_count"
@@ -21,7 +21,7 @@ struct GithubRepositories: Codable {
 }
 
 // MARK: - RepositoryInfo
-struct Item: Codable {
+struct GithubRepository: Codable {
     let id: Int
     let nodeID, name, fullName: String
     let owner: Owner
