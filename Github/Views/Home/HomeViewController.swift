@@ -15,8 +15,7 @@ class HomeViewController: UIViewController {
                                                items: []) {
         didSet {
             DispatchQueue.main.async {
-                // TODO: Verify within CoreData, favorites. Use internal ID to store id: Int64
-                self.tableView.reloadData()
+                self.updateHomeView()
             }
         }
     }
@@ -33,40 +32,44 @@ class HomeViewController: UIViewController {
 
     lazy var searchController: UISearchController = {
         let search = UISearchController(searchResultsController: nil)
-
         search.delegate = self
         search.searchBar.delegate = self
         search.searchResultsUpdater = self
         search.obscuresBackgroundDuringPresentation = true
+        search.searchBar.translatesAutoresizingMaskIntoConstraints = false
+        search.searchBar.placeholder = "Vamos aprender uma linguagem hoje?"
         return search
     }()
 
-    // TODO: Study App Views Life Cycle
-	override func viewDidLoad() {
-		super.viewDidLoad()
+    // MARK: Life Cycle
+    /// Doubts:
+    ///  configureNavigationController() should be called here?
+    ///  should we add default response when one get blocked by Github API > XXXX requests per hour ?
+    ///  should we identifyingInitialRepositoriesThatAreFavorite() at this point?
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         configureUI()
-//        configureNavigationController()
-        // TODO: Add default response when one get blocked by Github API > XXXX requests per hour
         getInitialRepositories()
-        // identifyingInitialRepositoriesThatAreFavorite()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         configureNavigationController()
     }
 
+    private func updateHomeView() {
+        searchController.isActive = false
+        tableView.reloadData()
+    }
+
+    // MARK: UI Config - TODO: Create metrics file
     private func configureUI() {
         title = "Repositórios"
-
         view.backgroundColor = .white
-
         view.addSubview(tableView)
 
         NSLayoutConstraint.activate([
-            // TODO: Create metrics file
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -74,6 +77,27 @@ class HomeViewController: UIViewController {
         ])
     }
 
+    // MARK: NavigationController Config
+    /// TODO: Discuss navigationController?.navigationBar.prefersLargeTitles usage within the Team
+    /// SHOULD we configure some appearence?
+    private func configureNavigationController() {
+        navigationItem.searchController = searchController
+
+        let filterBarButton = UIBarButtonItem(image: UIImage.init(systemName: "slider.horizontal.3"),
+                                              style: .plain,
+                                              target: self,
+                                              action: #selector(displayOptions))
+
+        navigationItem.rightBarButtonItem = filterBarButton
+        navigationItem.rightBarButtonItem?.tintColor = .black
+    }
+
+    // MARK: Display ascd and desc Options? Anything else?
+    @objc private func displayOptions() {
+
+    }
+
+    // MARK: Businees Rule method
     private func getInitialRepositories() {
         GithubApi.shared.getRepositories { response in
             switch response {
@@ -86,35 +110,38 @@ class HomeViewController: UIViewController {
         }
     }
 
+    // MARK: Businees Rule method
     private func getRepositoriesfrom(language: String, orderingBy: String) {
-        // ascd, desc
+        GithubApi.shared.getRepositoriesfrom(language: language, orderingBy: "desc") { response in
+            switch response {
+            case .success(let repositories):
+                self.repositories = repositories
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
-    private func configureNavigationController() {
-        // TODO: Discuss navigationController?.navigationBar.prefersLargeTitles usage within the Team
-        // navigationController?.navigationBar.prefersLargeTitles = true
-
-        // TODO: Configure Appearance
-
-        navigationItem.searchController = searchController
-
-        let filterBarButton = UIBarButtonItem(image: UIImage.init(systemName: "slider.horizontal.3"),
-                                              style: .plain,
-                                              target: self,
-                                              action: #selector(displayOptions))
-
-        navigationItem.rightBarButtonItem = filterBarButton
-        navigationItem.rightBarButtonItem?.tintColor = .black
-    }
-
-    @objc private func displayOptions() {
-        /// Display ascd and desc
-    }
 }
 
-
 extension HomeViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let favorite = UIContextualAction(style: .normal,
+                                          title: "Favoritar") { [weak self] (_, _, completion) in
+            if let respository = self?.repositories.items[indexPath.row] {
+                self?.handleMoveToFavorite(repository: respository)
+                completion(true)
+            }
+        }
+        favorite.backgroundColor = .lightGray
+        favorite.image = UIImage(systemName: "star.fill")
+        let configuration = UISwipeActionsConfiguration(actions: [favorite])
+        return configuration
+    }
 
+    private func handleMoveToFavorite(repository: GithubRepository) {
+        print("handleMoveToFavorite: \(repository)")
+    }
 }
 
 extension HomeViewController: UITableViewDataSource {
@@ -142,22 +169,27 @@ extension HomeViewController: UISearchControllerDelegate {
 }
 
 extension HomeViewController: UISearchBarDelegate {
-    
+
 }
 
 extension HomeViewController: UISearchResultsUpdating {
+    // MARK: Pre-fetch repositories actions:
+    /// pego o estado do botao (ascd, desc) ->
+    /// enum Ordering { case ascending = "ascd" case descending = "desc") [particularidade da api]
+    /// struct SearchPattern { let language: String, let ordering: Ordering }
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        // pego o conteúdo -> OK
-        // pego o estado do botao (ascd, desc) ->
-        // sensibilizo a variavel que armazena repositorios (struct: language, ordering) ->
-        // getRepositoriesfrom(searchPattern: SearchPattern)
-        // enum Ordering { case ascending = "ascd" case descending = "desc") [particularidade da api]
-        // struct SearchPattern { let language: String, let ordering: Ordering }
-        guard let typedText = searchBar.text else { return }
-        print(typedText)
+        setTitleCancelButton(searchBar)
+        guard let rawTypedText = searchBar.text else { return }
+        let typedText = rawTypedText.lowercased()
+        getRepositoriesfrom(language: typedText, orderingBy: "")
     }
 
     func updateSearchResults(for searchController: UISearchController) {
-        // No need to be implemented
+
+    }
+
+    private func setTitleCancelButton(_ searchBar: UISearchBar) {
+        let cancelButton = searchBar.value(forKey: "cancelButton") as! UIButton
+        cancelButton.setTitle("Cancelar", for: .normal)
     }
 }
