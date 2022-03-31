@@ -9,9 +9,9 @@ import UIKit
 import Kingfisher
 
 class CustomTableViewCell: UITableViewCell {
-    
+
     static let identifier = "CustomTableViewCell"
-    
+
     lazy var iconImageView: UIImageView = {
         let image = UIImageView()
 //        image.layer.masksToBounds = false
@@ -21,7 +21,7 @@ class CustomTableViewCell: UITableViewCell {
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
-    
+
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
@@ -29,7 +29,7 @@ class CustomTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
@@ -38,7 +38,7 @@ class CustomTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     lazy var stackView: UIStackView = {
         let stack = UIStackView()
         accessoryType = AccessoryType.disclosureIndicator
@@ -49,12 +49,12 @@ class CustomTableViewCell: UITableViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureUI()
     }
-    
+
     // TODO: Refactor this method.
     /// Parameters can placed inside of a Container like struct
     func setup(name: String,
@@ -73,11 +73,11 @@ class CustomTableViewCell: UITableViewCell {
             iconImageView.image = UIImage(systemName: "airplane")
         }
     }
-    
+
     private func configureUI() {
         addSubview(iconImageView)
         addSubview(stackView)
-        
+
         NSLayoutConstraint.activate([
             // TODO: Adjust this guy, considering NavBar and SearchBar!
             // TODO: Create Metrics file
@@ -90,12 +90,12 @@ class CustomTableViewCell: UITableViewCell {
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
         ])
-        
+
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(descriptionLabel)
         
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
