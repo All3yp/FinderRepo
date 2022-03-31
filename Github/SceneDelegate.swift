@@ -11,14 +11,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 	var window: UIWindow?
 
-	let rootController = ViewController()
+	let rootController = HomeViewController()
 
 	func scene(_ scene: UIScene, willConnectTo session: UISceneSession,
 			     options connectionOptions: UIScene.ConnectionOptions) {
 
 		guard let windowScene = (scene as? UIWindowScene) else { return }
-		let window = UIWindow(windowScene: windowScene)
-		window.rootViewController = rootController
+        // TODO: Study and try to understand if we can use the window property rather than the config below
+        let window = UIWindow(windowScene: windowScene)
+		window.rootViewController = UINavigationController(rootViewController: rootController)
 		window.makeKeyAndVisible()
 		self.window = window
 	}
