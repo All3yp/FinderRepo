@@ -11,7 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 	var window: UIWindow?
 
-	let rootController = HomeViewController()
+	let rootController = CustomTabBarController()
 
 	func scene(_ scene: UIScene, willConnectTo session: UISceneSession,
 			     options connectionOptions: UIScene.ConnectionOptions) {
