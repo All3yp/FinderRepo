@@ -16,6 +16,9 @@
 		1871962627EBBE2F0019B07D /* GithubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1871962527EBBE2F0019B07D /* GithubTests.swift */; };
 		1871963027EBBE2F0019B07D /* GithubUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1871962F27EBBE2F0019B07D /* GithubUITests.swift */; };
 		1871963227EBBE2F0019B07D /* GithubUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1871963127EBBE2F0019B07D /* GithubUITestsLaunchTests.swift */; };
+		18C1DB0727F63FBF00051EAB /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C1DB0627F63FBF00051EAB /* CustomTabBarController.swift */; };
+		18C1DB0927F6402400051EAB /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C1DB0827F6402400051EAB /* FavoritesViewController.swift */; };
+		18C1DB0B27F640C500051EAB /* TeamDevViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C1DB0A27F640C500051EAB /* TeamDevViewController.swift */; };
 		88C14A4127F38B1D00C3056A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 88C14A4027F38B1D00C3056A /* Alamofire */; };
 		88C14A4427F38CF200C3056A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 88C14A4327F38CF200C3056A /* Kingfisher */; };
 		88C14A4B27F3900200C3056A /* GithubRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C14A4A27F3900200C3056A /* GithubRepository.swift */; };
@@ -56,6 +59,9 @@
 		1871962B27EBBE2F0019B07D /* GithubUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GithubUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1871962F27EBBE2F0019B07D /* GithubUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubUITests.swift; sourceTree = "<group>"; };
 		1871963127EBBE2F0019B07D /* GithubUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		18C1DB0627F63FBF00051EAB /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		18C1DB0827F6402400051EAB /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		18C1DB0A27F640C500051EAB /* TeamDevViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDevViewController.swift; sourceTree = "<group>"; };
 		88C14A4A27F3900200C3056A /* GithubRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubRepository.swift; sourceTree = "<group>"; };
 		88C14A4C27F394BA00C3056A /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
 		88C14A4E27F3A03900C3056A /* GithubApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubApi.swift; sourceTree = "<group>"; };
@@ -116,8 +122,9 @@
 				88C14A4927F38FDF00C3056A /* Model */,
 				88C14A4727F38FB800C3056A /* Services */,
 				88C14A4527F38E8500C3056A /* Views */,
-				1871960B27EBBE2E0019B07D /* AppDelegate.swift */,
+				18C1DB0527F63F9800051EAB /* Controllers */,
 				1871960D27EBBE2E0019B07D /* SceneDelegate.swift */,
+				1871960B27EBBE2E0019B07D /* AppDelegate.swift */,
 				1871961727EBBE2F0019B07D /* Assets.xcassets */,
 				1871961927EBBE2F0019B07D /* LaunchScreen.storyboard */,
 				1871961C27EBBE2F0019B07D /* Info.plist */,
@@ -144,9 +151,27 @@
 			path = GithubUITests;
 			sourceTree = "<group>";
 		};
+		18C1DB0427F63F8D00051EAB /* Details */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		18C1DB0527F63F9800051EAB /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				18C1DB0627F63FBF00051EAB /* CustomTabBarController.swift */,
+				18C1DB0A27F640C500051EAB /* TeamDevViewController.swift */,
+				18C1DB0827F6402400051EAB /* FavoritesViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		88C14A4527F38E8500C3056A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				18C1DB0427F63F8D00051EAB /* Details */,
 				88C14A4627F38EA000C3056A /* Home */,
 			);
 			path = Views;
@@ -338,9 +363,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				1871961027EBBE2E0019B07D /* HomeViewController.swift in Sources */,
+<<<<<<< HEAD
 				9F6C0EDB27F5D19D008B49BB /* ManagedObjectContext.swift in Sources */,
 				9F6C0EDD27F5F3AE008B49BB /* FavoriteRepository.swift in Sources */,
+=======
+				18C1DB0927F6402400051EAB /* FavoritesViewController.swift in Sources */,
+>>>>>>> 88c04c2 (feat: Create tabbar controller on project)
 				1871960C27EBBE2E0019B07D /* AppDelegate.swift in Sources */,
+				18C1DB0B27F640C500051EAB /* TeamDevViewController.swift in Sources */,
+				18C1DB0727F63FBF00051EAB /* CustomTabBarController.swift in Sources */,
 				1871961627EBBE2E0019B07D /* Github.xcdatamodeld in Sources */,
 				88C14A4D27F394BA00C3056A /* NetworkingService.swift in Sources */,
 				88C14A4B27F3900200C3056A /* GithubRepository.swift in Sources */,
