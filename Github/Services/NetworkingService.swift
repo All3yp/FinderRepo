@@ -28,7 +28,7 @@ enum NetworkingServiceError: LocalizedError {
 }
 
 protocol AppBaseModel: Codable {
-    
+
 }
 
 protocol AppBaseEndpoint {
@@ -48,7 +48,7 @@ protocol DeprecatedNetworkingServiceProtocol {
 }
 
 protocol NetworkingServiceProtocol {
-    func genericRequest<T:Codable>(url: String,
+    func request<T:Codable>(url: String,
                                    method:String,
                                    of type: T.Type,
                                    completion: @escaping(Result<T, NetworkingServiceError>) -> Void)
@@ -64,7 +64,7 @@ final class NetworkingService: NetworkingServiceProtocol {
         return url
     }
 
-    func genericRequest<T>(url: String,
+    func request<T>(url: String,
                            method: String,
                            of type: T.Type,
                            completion: @escaping (Result<T, NetworkingServiceError>) -> Void) where T : Decodable, T : Encodable {
@@ -88,7 +88,7 @@ final class DeprecatedNetworkingService: DeprecatedNetworkingServiceProtocol {
 //            completion(.failure(.urlInvalid))
 //            return
 //        }
-        
+
         // TODO: Refactor
         AF.request(url, method: .get).validate().responseDecodable(of: GithubRepositories.self) { response in
             
