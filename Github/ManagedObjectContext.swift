@@ -36,6 +36,9 @@ extension ManagedObjectContext: ManagedCreateProtocol {
         
         let favoriteRepository = FavoriteRepositoryEntity(context: context)
         
+        let dateFormatter = ISO8601DateFormatter()
+        let createdAt = dateFormatter.date(from:repository.createdAt)!
+        
         favoriteRepository.setValue(repository.id, forKey: "id")
         favoriteRepository.setValue(repository.name, forKey: "name")
         favoriteRepository.setValue(repository.itemDescription, forKey: "repositoryDescription")
@@ -43,11 +46,10 @@ extension ManagedObjectContext: ManagedCreateProtocol {
         favoriteRepository.setValue(repository.url, forKey: "repositoryUrl")
         favoriteRepository.setValue(repository.owner.login, forKey: "ownerName")
         favoriteRepository.setValue(repository.watchers, forKey: "watchersCount")
-        favoriteRepository.setValue(repository.createdAt, forKey: "repositoryCreatedAt")
+        favoriteRepository.setValue(createdAt, forKey: "repositoryCreatedAt")
         favoriteRepository.setValue(repository.license?.name, forKey: "licenseTypeName")
         favoriteRepository.setValue(Date(), forKey: "createdAt")
         favoriteRepository.setValue(true, forKey: "isFavorite")
-        
         
         do {
             try context.save()
