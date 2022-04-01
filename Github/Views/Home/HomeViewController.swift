@@ -46,10 +46,21 @@ class HomeViewController: UIViewController {
     ///  configureNavigationController() should be called here?
     ///  should we add default response when one get blocked by Github API > XXXX requests per hour ?
     ///  should we identifyingInitialRepositoriesThatAreFavorite() at this point?
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
-        configureUI()
+	init(titleNav: String) {
+		super.init(nibName: nil, bundle: nil)
+		title = titleNav
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+     configureUI()
+
+		view.backgroundColor = .systemBackground
         getInitialRepositories()
     }
 
