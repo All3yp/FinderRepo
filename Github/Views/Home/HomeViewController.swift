@@ -1,4 +1,4 @@
-//
+// swiftlint:disable force_cast
 //  ViewController.swift
 //  Github
 //
@@ -84,7 +84,7 @@ class HomeViewController: UIViewController {
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -0),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -0)
         ])
     }
 

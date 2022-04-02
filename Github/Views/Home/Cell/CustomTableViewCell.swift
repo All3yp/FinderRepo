@@ -88,22 +88,22 @@ class CustomTableViewCell: UITableViewCell {
             stackView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             stackView.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 5),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
         ])
 
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(descriptionLabel)
-        
+
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }

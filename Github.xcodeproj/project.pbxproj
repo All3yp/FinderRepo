@@ -24,6 +24,8 @@
 		88C14A4B27F3900200C3056A /* GithubRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C14A4A27F3900200C3056A /* GithubRepository.swift */; };
 		88C14A4D27F394BA00C3056A /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C14A4C27F394BA00C3056A /* NetworkingService.swift */; };
 		88C14A4F27F3A03900C3056A /* GithubApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C14A4E27F3A03900C3056A /* GithubApi.swift */; };
+		9F6C0EDB27F5D19D008B49BB /* ManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C0EDA27F5D19D008B49BB /* ManagedObjectContext.swift */; };
+		9F6C0EDD27F5F3AE008B49BB /* FavoriteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C0EDC27F5F3AE008B49BB /* FavoriteRepository.swift */; };
 		88C14A9827F4A4A600C3056A /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C14A9727F4A4A600C3056A /* CustomTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +66,8 @@
 		88C14A4A27F3900200C3056A /* GithubRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubRepository.swift; sourceTree = "<group>"; };
 		88C14A4C27F394BA00C3056A /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
 		88C14A4E27F3A03900C3056A /* GithubApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubApi.swift; sourceTree = "<group>"; };
+		9F6C0EDA27F5D19D008B49BB /* ManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectContext.swift; sourceTree = "<group>"; };
+		9F6C0EDC27F5F3AE008B49BB /* FavoriteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRepository.swift; sourceTree = "<group>"; };
 		88C14A9727F4A4A600C3056A /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -127,6 +131,7 @@
 				1871961927EBBE2F0019B07D /* LaunchScreen.storyboard */,
 				1871961C27EBBE2F0019B07D /* Info.plist */,
 				1871961427EBBE2E0019B07D /* Github.xcdatamodeld */,
+				9F6C0EDA27F5D19D008B49BB /* ManagedObjectContext.swift */,
 			);
 			path = Github;
 			sourceTree = "<group>";
@@ -196,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				88C14A4A27F3900200C3056A /* GithubRepository.swift */,
+				9F6C0EDC27F5F3AE008B49BB /* FavoriteRepository.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -368,6 +374,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1871961027EBBE2E0019B07D /* HomeViewController.swift in Sources */,
+				9F6C0EDB27F5D19D008B49BB /* ManagedObjectContext.swift in Sources */,
+				9F6C0EDD27F5F3AE008B49BB /* FavoriteRepository.swift in Sources */,
 				18C1DB0927F6402400051EAB /* FavoritesViewController.swift in Sources */,
 				1871960C27EBBE2E0019B07D /* AppDelegate.swift in Sources */,
 				88C14A9827F4A4A600C3056A /* CustomTableViewCell.swift in Sources */,

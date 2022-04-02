@@ -88,7 +88,7 @@ final class DeprecatedNetworkingService: DeprecatedNetworkingServiceProtocol {
 //            completion(.failure(.urlInvalid))
 //            return
 //        }
-
+        
         // TODO: Refactor
         AF.request(url, method: .get).validate().responseDecodable(of: GithubRepositories.self) { response in
             
