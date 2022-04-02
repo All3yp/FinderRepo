@@ -24,9 +24,9 @@
 		88C14A4B27F3900200C3056A /* GithubRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C14A4A27F3900200C3056A /* GithubRepository.swift */; };
 		88C14A4D27F394BA00C3056A /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C14A4C27F394BA00C3056A /* NetworkingService.swift */; };
 		88C14A4F27F3A03900C3056A /* GithubApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C14A4E27F3A03900C3056A /* GithubApi.swift */; };
+		88C14A9827F4A4A600C3056A /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C14A9727F4A4A600C3056A /* CustomTableViewCell.swift */; };
 		9F6C0EDB27F5D19D008B49BB /* ManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C0EDA27F5D19D008B49BB /* ManagedObjectContext.swift */; };
 		9F6C0EDD27F5F3AE008B49BB /* FavoriteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C0EDC27F5F3AE008B49BB /* FavoriteRepository.swift */; };
-		88C14A9827F4A4A600C3056A /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C14A9727F4A4A600C3056A /* CustomTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,9 +66,9 @@
 		88C14A4A27F3900200C3056A /* GithubRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubRepository.swift; sourceTree = "<group>"; };
 		88C14A4C27F394BA00C3056A /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
 		88C14A4E27F3A03900C3056A /* GithubApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubApi.swift; sourceTree = "<group>"; };
+		88C14A9727F4A4A600C3056A /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		9F6C0EDA27F5D19D008B49BB /* ManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectContext.swift; sourceTree = "<group>"; };
 		9F6C0EDC27F5F3AE008B49BB /* FavoriteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRepository.swift; sourceTree = "<group>"; };
-		88C14A9727F4A4A600C3056A /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -364,7 +364,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: Swiftlint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: Swiftlint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
