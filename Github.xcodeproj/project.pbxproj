@@ -26,6 +26,7 @@
 		88C14A4F27F3A03900C3056A /* GithubApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C14A4E27F3A03900C3056A /* GithubApi.swift */; };
 		9F6C0EDB27F5D19D008B49BB /* ManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C0EDA27F5D19D008B49BB /* ManagedObjectContext.swift */; };
 		9F6C0EDD27F5F3AE008B49BB /* FavoriteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C0EDC27F5F3AE008B49BB /* FavoriteRepository.swift */; };
+		88C14A9827F4A4A600C3056A /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C14A9727F4A4A600C3056A /* CustomTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		88C14A4E27F3A03900C3056A /* GithubApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubApi.swift; sourceTree = "<group>"; };
 		9F6C0EDA27F5D19D008B49BB /* ManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectContext.swift; sourceTree = "<group>"; };
 		9F6C0EDC27F5F3AE008B49BB /* FavoriteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRepository.swift; sourceTree = "<group>"; };
+		88C14A9727F4A4A600C3056A /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +182,7 @@
 		88C14A4627F38EA000C3056A /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				88C14A9627F4A47900C3056A /* Cell */,
 				1871960F27EBBE2E0019B07D /* HomeViewController.swift */,
 			);
 			path = Home;
@@ -201,6 +204,14 @@
 				9F6C0EDC27F5F3AE008B49BB /* FavoriteRepository.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		88C14A9627F4A47900C3056A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				88C14A9727F4A4A600C3056A /* CustomTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -367,6 +378,7 @@
 				9F6C0EDD27F5F3AE008B49BB /* FavoriteRepository.swift in Sources */,
 				18C1DB0927F6402400051EAB /* FavoritesViewController.swift in Sources */,
 				1871960C27EBBE2E0019B07D /* AppDelegate.swift in Sources */,
+				88C14A9827F4A4A600C3056A /* CustomTableViewCell.swift in Sources */,
 				18C1DB0B27F640C500051EAB /* TeamDevViewController.swift in Sources */,
 				18C1DB0727F63FBF00051EAB /* CustomTabBarController.swift in Sources */,
 				1871961627EBBE2E0019B07D /* Github.xcdatamodeld in Sources */,
