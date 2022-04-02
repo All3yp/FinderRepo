@@ -175,6 +175,12 @@ extension HomeViewController: UITableViewDataSource {
                    isFavorite: indexPath.row.isMultiple(of: 2) ? true : false)
         return cell
     }
+
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let selectedRepo = repositories.items[indexPath.row]
+		let repoDetailController = DetailControllerFactory.makeDetailController(from: selectedRepo)
+		self.navigationController?.pushViewController(repoDetailController, animated: true)
+	}
 }
 
 extension HomeViewController: UISearchControllerDelegate {

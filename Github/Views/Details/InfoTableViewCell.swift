@@ -21,7 +21,7 @@ class InfoTableViewCell: UITableViewCell {
 	private let titleLabel: UILabel = {
 		let label = UILabel()
 		label.numberOfLines = 1
-		label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+		label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
 		label.textColor = .label
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
@@ -29,8 +29,8 @@ class InfoTableViewCell: UITableViewCell {
 
 	private let descriptionLabel: UILabel = {
 		let label = UILabel()
-		label.numberOfLines = 1
-		label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+		label.numberOfLines = 0
+		label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
 		label.textColor = .label
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
@@ -73,8 +73,9 @@ extension InfoTableViewCell: ViewCode {
 			stackView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
 			stackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -20),
 			stackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 20),
+			stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
 
-			iconImageView.heightAnchor.constraint(equalToConstant: 30),
+			iconImageView.heightAnchor.constraint(equalToConstant: 25),
 			iconImageView.widthAnchor.constraint(equalTo: iconImageView.heightAnchor)
 		])
 	}

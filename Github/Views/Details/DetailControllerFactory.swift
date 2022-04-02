@@ -34,7 +34,7 @@ class DetailControllerFactory {
 		let repoController = DetailsViewController(
 			.init(
 				headerModel: .init(
-					photo: "https://www.swift.org/apple-touch-icon-180x180.png",
+					photo: repository.owner.avatarURL,
 					description: repository.itemDescription ?? "No Description"
 				),
 				infoCellModels: [

@@ -64,9 +64,8 @@ extension DetailsFooterView: ViewCode {
 		NSLayoutConstraint.activate([
 			repositoryButton.topAnchor.constraint(equalTo: topAnchor, constant: 30),
 			repositoryButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
-//			repositoryButton.heightAnchor.constraint(equalToConstant: 200),
-			repositoryButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-			repositoryButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5)
+			repositoryButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+			repositoryButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
 		])
 	}
 
