@@ -8,8 +8,8 @@
 import Foundation
 import Alamofire
 
-// TODO: Create enum GetRepositoriesServiceError: NetworkingServiceError
-// TODO: Inherit from LocalizedError
+// MARK: Create enum GetRepositoriesServiceError: NetworkingServiceError
+// Inherit from LocalizedError
 enum NetworkingServiceError: LocalizedError {
     case urlInvalid
     case requestError(_ description: String)
@@ -48,10 +48,10 @@ protocol DeprecatedNetworkingServiceProtocol {
 }
 
 protocol NetworkingServiceProtocol {
-    func request<T:Codable>(url: String,
-                                   method:String,
-                                   of type: T.Type,
-                                   completion: @escaping(Result<T, NetworkingServiceError>) -> Void)
+    func request<T: Codable>(url: String,
+                             method: String,
+                             of type: T.Type,
+                             completion: @escaping(Result<T, NetworkingServiceError>) -> Void)
 }
 
 final class NetworkingService: NetworkingServiceProtocol {
@@ -65,10 +65,10 @@ final class NetworkingService: NetworkingServiceProtocol {
     }
 
     func request<T>(url: String,
-                           method: String,
-                           of type: T.Type,
-                           completion: @escaping (Result<T, NetworkingServiceError>) -> Void) where T : Decodable, T : Encodable {
-        // TODO: Validate URL
+                    method: String,
+                    of type: T.Type,
+                    completion: @escaping (Result<T,
+                                           NetworkingServiceError>) -> Void) where T: Decodable, T: Encodable {
         AF.request(url, method: .get).validate().responseDecodable(of: T.self) { response in
 
             switch response.result {
@@ -81,17 +81,15 @@ final class NetworkingService: NetworkingServiceProtocol {
     }
 }
 
-
 final class DeprecatedNetworkingService: DeprecatedNetworkingServiceProtocol {
-    func request(url: String, method: String, completion: @escaping (Result<GithubRepositories, NetworkingServiceError>) -> Void) {
+    func request(url: String,
+                 method: String,
+                 completion: @escaping (Result<GithubRepositories, NetworkingServiceError>) -> Void) {
 //        guard let url = urlBuilder(urlPath: url) else {
 //            completion(.failure(.urlInvalid))
 //            return
 //        }
-        
-        // TODO: Refactor
         AF.request(url, method: .get).validate().responseDecodable(of: GithubRepositories.self) { response in
-            
             switch response.result {
             case let .success(data):
                 completion(.success(data))

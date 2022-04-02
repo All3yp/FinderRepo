@@ -13,11 +13,11 @@ class CustomTableViewCell: UITableViewCell {
     static let identifier = "CustomTableViewCell"
 
     lazy var iconImageView: UIImageView = {
-        let image = UIImageView()
-//        image.layer.masksToBounds = false
-//        image.layer.cornerRadius = frame.size.width / 2
-//        image.clipsToBounds = true
-        image.contentMode = .scaleAspectFit
+        let image = UIImageView(frame: .zero)
+        image.layer.masksToBounds = false
+        image.layer.cornerRadius = 40
+        image.clipsToBounds = true
+        image.contentMode = .scaleToFill
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -43,9 +43,9 @@ class CustomTableViewCell: UITableViewCell {
         let stack = UIStackView()
         accessoryType = AccessoryType.disclosureIndicator
         stack.axis = .vertical
-        // TODO: Create metrics file
-        stack.spacing = 10
-        stack.contentMode = .top
+        // MARK: Create metrics file
+        stack.spacing = 16
+        stack.contentMode = .center
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -55,8 +55,8 @@ class CustomTableViewCell: UITableViewCell {
         configureUI()
     }
 
-    // TODO: Refactor this method.
-    /// Parameters can placed inside of a Container like struct
+    // MARK: Refactor this method.
+    // Parameters can placed inside of a Container like struct
     func setup(name: String,
                description: String?,
                image: String?,
@@ -67,8 +67,7 @@ class CustomTableViewCell: UITableViewCell {
 
         if let image = image {
             let url = URL(string: image)
-            let processor = RoundCornerImageProcessor(cornerRadius: 35)
-            iconImageView.kf.setImage(with: url, placeholder: nil, options: [.processor(processor)])
+            iconImageView.kf.setImage(with: url?.downloadURL, placeholder: nil, options: nil)
         } else {
             iconImageView.image = UIImage(systemName: "airplane")
         }
@@ -78,15 +77,15 @@ class CustomTableViewCell: UITableViewCell {
         addSubview(iconImageView)
         addSubview(stackView)
 
+        // MARK: Adjust this guy, considering NavBar and SearchBar!
+        // Create Metrics file
         NSLayoutConstraint.activate([
-            // TODO: Adjust this guy, considering NavBar and SearchBar!
-            // TODO: Create Metrics file
             iconImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             iconImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            iconImageView.heightAnchor.constraint(equalToConstant: 60),
-            iconImageView.widthAnchor.constraint(equalToConstant: 60),
+            iconImageView.heightAnchor.constraint(equalToConstant: 80),
+            iconImageView.widthAnchor.constraint(equalToConstant: 80),
             stackView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            stackView.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 5),
+            stackView.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 16),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
         ])

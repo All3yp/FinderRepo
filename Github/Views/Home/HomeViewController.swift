@@ -74,7 +74,7 @@ class HomeViewController: UIViewController {
         tableView.reloadData()
     }
 
-    // MARK: UI Config - TODO: Create metrics file
+    // MARK: UI Config, Create metrics file
     private func configureUI() {
         title = "Repositórios"
         view.backgroundColor = .white
@@ -89,8 +89,8 @@ class HomeViewController: UIViewController {
     }
 
     // MARK: NavigationController Config
-    /// TODO: Discuss navigationController?.navigationBar.prefersLargeTitles usage within the Team
-    /// SHOULD we configure some appearence?
+    // Discuss navigationController?.navigationBar.prefersLargeTitles usage within the Team
+    // SHOULD we configure some appearence?
     private func configureNavigationController() {
         navigationItem.searchController = searchController
 
@@ -115,7 +115,7 @@ class HomeViewController: UIViewController {
             case .success(let repositories):
                 self.repositories = repositories
             case .failure(let error):
-                // TODO: Load Custom Error View!
+                // MARK: Load Custom Error View!
                 print(error)
             }
         }
@@ -136,7 +136,9 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func tableView(_ tableView: UITableView,
+                   leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
         let favorite = UIContextualAction(style: .normal,
                                           title: "Favoritar") { [weak self] (_, _, completion) in
             if let respository = self?.repositories.items[indexPath.row] {

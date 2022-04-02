@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			     options connectionOptions: UIScene.ConnectionOptions) {
 
 		guard let windowScene = (scene as? UIWindowScene) else { return }
-        // TODO: Study and try to understand if we can use the window property rather than the config below
+        // MARK: Study and try to understand if we can use the window property rather than the config below
         let window = UIWindow(windowScene: windowScene)
 		window.rootViewController = UINavigationController(rootViewController: rootController)
 		window.makeKeyAndVisible()

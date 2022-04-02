@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 protocol GithubApiRepositoriesProtocol {
     func getRepositories(completion: @escaping(Result<GithubRepositories, NetworkingServiceError>) -> Void)
     func getRepositoriesfrom(language: String,
@@ -17,8 +16,6 @@ protocol GithubApiRepositoriesProtocol {
 }
 
 final class GithubApi: GithubApiRepositoriesProtocol {
-
-    // TODO: Apply reusability
     let url = "https://api.github.com/search/repositories?q=stars:%3E=10000+language:swift&sort=stars&order=desc"
 
     private let networking: NetworkingService
@@ -33,7 +30,6 @@ final class GithubApi: GithubApiRepositoriesProtocol {
     }
 
     func getRepositories(completion: @escaping (Result<GithubRepositories, NetworkingServiceError>) -> Void) {
-        // TODO: Create url
         networking.request(url: url, method: "", of: GithubRepositories.self) { response in
 
             switch response {
@@ -48,8 +44,9 @@ final class GithubApi: GithubApiRepositoriesProtocol {
     func getRepositoriesfrom(language: String,
                              orderingBy: String,
                              completion: @escaping (Result<GithubRepositories, NetworkingServiceError>) -> Void) {
-        let url = "https://api.github.com/search/repositories?q=stars:%3E=5000+language:\(language)&sort=stars&order=\(orderingBy)"
-
+        let baseUrl = "https://api.github.com/search/repositories"
+        let queryParams = "?q=stars:%3E=5000+language:\(language)&sort=stars&order=\(orderingBy)"
+        let url = "\(baseUrl)\(queryParams)"
         networking.request(url: url, method: "", of: GithubRepositories.self) { response in
             switch response {
             case .success(let repositories):
