@@ -6,6 +6,16 @@
 //
 
 import Foundation
+// MARK: Add Data Formatting
+//    init(from decoder: Decoder) throws {
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//
+//        let createAtPrimiteString = try container.decode(String.self, forKey: .createdAt)
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat
+//        dateFormatter.timeZone = TimeZone.current
+//        let date = dateFormatter.date(from: createAtPrimiteString)
+//    }
 
 // MARK: - GitHubRepositories
 struct GithubRepositories: Codable {
@@ -54,19 +64,7 @@ struct GithubRepository: Codable {
         case openIssues = "open_issues"
         case watchers, visibility, license
     }
-    
-    // TODO: Add Data Formatting
-    ///    init(from decoder: Decoder) throws {
-    ///        let container = try decoder.container(keyedBy: CodingKeys.self)
-    ///
-    ///        let createAtPrimiteString = try container.decode(String.self, forKey: .createdAt)
-    ///        let dateFormatter = DateFormatter()
-    ///        dateFormatter.dateFormat
-    ///        dateFormatter.timeZone = TimeZone.current
-    ///        let date = dateFormatter.date(from: createAtPrimiteString)
-    ///    }
 }
-
 // MARK: - License
 struct License: Codable {
     let key, name: String

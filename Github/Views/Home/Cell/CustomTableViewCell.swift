@@ -43,7 +43,7 @@ class CustomTableViewCell: UITableViewCell {
         let stack = UIStackView()
         accessoryType = AccessoryType.disclosureIndicator
         stack.axis = .vertical
-        // TODO: Create metrics file
+        // MARK: Create metrics file
         stack.spacing = 10
         stack.contentMode = .top
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -55,8 +55,8 @@ class CustomTableViewCell: UITableViewCell {
         configureUI()
     }
 
-    // TODO: Refactor this method.
-    /// Parameters can placed inside of a Container like struct
+    // MARK: Refactor this method.
+    // Parameters can placed inside of a Container like struct
     func setup(name: String,
                description: String?,
                image: String?,
@@ -78,9 +78,9 @@ class CustomTableViewCell: UITableViewCell {
         addSubview(iconImageView)
         addSubview(stackView)
 
+        // MARK: Adjust this guy, considering NavBar and SearchBar!
+        // Create Metrics file
         NSLayoutConstraint.activate([
-            // TODO: Adjust this guy, considering NavBar and SearchBar!
-            // TODO: Create Metrics file
             iconImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             iconImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             iconImageView.heightAnchor.constraint(equalToConstant: 60),
