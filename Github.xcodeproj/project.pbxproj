@@ -114,12 +114,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		186E6A9427F8EF5700FA6110 /* Model */ = {
+		186E6A9427F8EF5700FA6110 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				186E6A8827F7FE5D00FA6110 /* DetailViewModel.swift */,
 			);
-			path = Model;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		187195FF27EBBE2D0019B07D = {
@@ -149,6 +149,7 @@
 				88C14A4727F38FB800C3056A /* Services */,
 				88C14A4527F38E8500C3056A /* Views */,
 				18C1DB0527F63F9800051EAB /* Controllers */,
+				187B575227F8F68500B9F45B /* Helpers */,
 				1871960D27EBBE2E0019B07D /* SceneDelegate.swift */,
 				1871960B27EBBE2E0019B07D /* AppDelegate.swift */,
 				1871961727EBBE2F0019B07D /* Assets.xcassets */,
@@ -177,12 +178,18 @@
 			path = GithubUITests;
 			sourceTree = "<group>";
 		};
+		187B575227F8F68500B9F45B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				186E6A9227F8E8A900FA6110 /* DetailControllerFactory.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		18C1DB0427F63F8D00051EAB /* Details */ = {
 			isa = PBXGroup;
 			children = (
-				186E6A9427F8EF5700FA6110 /* Model */,
-				186E6A9227F8E8A900FA6110 /* DetailControllerFactory.swift */,
-				186E6A8427F7FCED00FA6110 /* DetailsViewController.swift */,
+				186E6A9427F8EF5700FA6110 /* ViewModel */,
 				186E6A8627F7FD0500FA6110 /* DetailsView.swift */,
 				186E6A9027F8D15F00FA6110 /* DetailsFooterView.swift */,
 				186E6A8E27F8CDE000FA6110 /* InfoTableViewCell.swift */,
@@ -197,6 +204,7 @@
 				18C1DB0627F63FBF00051EAB /* CustomTabBarController.swift */,
 				18C1DB0A27F640C500051EAB /* TeamDevViewController.swift */,
 				18C1DB0827F6402400051EAB /* FavoritesViewController.swift */,
+				186E6A8427F7FCED00FA6110 /* DetailsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
