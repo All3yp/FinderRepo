@@ -63,7 +63,7 @@ class HomeViewController: UIViewController {
         var toolbar = UIToolbar()
         toolbar.frame = CGRect.init(x: 0.0, y: height - 300, width: width, height: 50)
         toolbar.barStyle = .black
-        toolbar.items = [.init(title: "Done", style: .done, target: self, action: #selector(onDoneButtonTapped))]
+        toolbar.items = [.init(title: "Selecionar", style: .done, target: self, action: #selector(onDoneButtonTapped))]
         return toolbar
     }()
 
