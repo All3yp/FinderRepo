@@ -41,22 +41,26 @@ class DetailControllerFactory {
 					.init(
 						icon: UIImage(systemName: "person.circle")!,
 						title: "Autor",
-						description: repository.fullName
+						description: repository.fullName,
+						tapHandle: nil
 					),
 					.init(
 						icon: UIImage(systemName: "eye")!,
 						title: "Contagem de Observadores",
-						description: "\(repository.watchers)"
+						description: "\(repository.watchers)",
+						tapHandle: nil
 					),
 					.init(
 						icon: UIImage(systemName: "alarm.fill")!,
 						title: "Data de Criação",
-						description: repository.createdAt
+						description: repository.createdAt,
+						tapHandle: nil
 					),
 					.init(
 						icon: UIImage(systemName: "network")!,
 						title: "Licença",
-						description: repository.license?.name ?? "None"
+						description: repository.license?.name ?? "None",
+						tapHandle: nil
 					)
 				],
 				title: repository.name,
@@ -67,33 +71,46 @@ class DetailControllerFactory {
 		return repoController
 	}
 
-//	static func makeDetailController(from profile: GithubProfile) -> DetailsViewController {
+
+//	static func makeDetailController(from profile: User ou Owner) -> DetailsViewController {
 //		let profileController = DetailsViewController(
 //			.init(
 //				headerModel: .init(
-//					photo: "https://avatars.githubusercontent.com/u/29764688?v=4",
-//					description: "Master student degree computer science UFPE, iOS developer with a UX/UI design background."
+//					photo: "https://avatars.githubusercontent.com/u/29764688?",
+//					description: "iOS developer."
 //				),
 //				infoCellModels: [
 //					.init(
 //						icon: UIImage(systemName: "phone")!,
 //						title: "Telefone",
-//						description: "(00)0000-0000"
+//						description: "(00)0000-0000",
+//						tapHandle: {
+//							// Chamar app do telefone passando o número
+//						}
 //					),
 //					.init(
 //						icon: UIImage(systemName: "mail")!,
 //						title: "Email",
-//						description: "fulano@fulano.com.br"
+//						description: "fulano@fulano.com.br",
+//						tapHandle: {
+//							// Chamar app de email passando o email
+//						}
 //					),
 //					.init(
 //						icon: UIImage(systemName: "network")!,
 //						title: "LinkedIn",
-//						description: "url"
+//						description: "url",
+//						tapHandle: {
+//							// Chamar browser ou app do linkedin passando o username
+//						}
 //					),
 //					.init(
 //						icon: UIImage(systemName: "network")!,
 //						title: "Twitter",
-//						description: "url (opcional)"
+//						description: "url (opcional)",
+//						tapHandle: {
+//							// Chamar browser ou app do twitter passando o twitter
+//						}
 //					)
 //				],
 //				title: "All3yP",

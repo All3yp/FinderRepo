@@ -19,6 +19,7 @@ struct InfoCellModel {
 	let icon: UIImage
 	let title: String
 	let description: String
+	let tapHandle: (() -> Void)?
 }
 
 struct DetailsHeaderModel {

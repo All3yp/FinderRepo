@@ -58,6 +58,11 @@ extension DetailsViewController: UITableViewDataSource {
 		return cell
 	}
 
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let currentCellModel = model.infoCellModels[indexPath.row]
+		currentCellModel.tapHandle?()
+	}
+
 }
 
 extension DetailsViewController: UITableViewDelegate {
