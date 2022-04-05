@@ -127,7 +127,9 @@ extension ManagedObjectContext: ManagedListAllProtocol {
 
                     let favoriteRepository = FavoriteRepository(id: id, name: name, repositoryDescription: repositoryDescription, linkAvatar: linkAvatar, repositoryUrl: repositoryUrl, ownerName: ownerName, watchersCount: watchersCount, repositoryCreatedAt: repositoryCreatedAt, licenseTypeName: licenseTypeName, createdAt: createdAt, isFavorite: isFavorite)
 
-                    listFavoriteRepositories.append(favoriteRepository)
+                    if isFavorite {
+                        listFavoriteRepositories.append(favoriteRepository)
+                    }
                 }
             }
 
