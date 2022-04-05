@@ -192,7 +192,15 @@ extension HomeViewController: UITableViewDelegate {
     }
 
     private func handleMoveToFavorite(repository: GithubRepository) {
-        print("handleMoveToFavorite: \(repository)")
+        ManagedObjectContext.shared.update(id: repository.id, isFavorite: true) { result in
+            print(result)
+        }
+        
+//        ManagedObjectContext.shared.create(repository: repository) { result in
+//            print("opa \(result)")
+//        }
+        let opa = ManagedObjectContext.shared.listAll()
+        print(opa)
     }
 }
 

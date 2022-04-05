@@ -18,6 +18,15 @@ protocol ManagedUpdateProtocol {
 	func update(id: Int, isFavorite: Bool, onCompletionHandler: onCompletionHandler)
 }
 
+protocol ManagedUpsertProtocol {
+    func upsert(repository: GithubRepository, onCompletionHandler: onCompletionHandler)
+}
+
+protocol ManagedSelectProtocol {
+    func select(id: Int, onCompletionHandler: onCompletionHandler)
+}
+
+
 class ManagedObjectContext {
 	private let entity = "FavoriteRepositoryEntity"
 
@@ -126,8 +135,24 @@ extension ManagedObjectContext: ManagedListAllProtocol {
 		} catch let error as NSError {
 			print("Error in request \(error.localizedDescription)")
 		}
-
 		return listFavoriteRepositories
 	}
 
+}
+
+extension ManagedObjectContext: ManagedSelectProtocol {
+    func select(id: Int, onCompletionHandler: (String) -> Void) {
+        let context = getContext()
+//        let object = try context.existingObject(
+//            with: id
+//        )
+    }
+}
+
+extension ManagedObjectContext: ManagedUpsertProtocol {
+    func upsert(repository: GithubRepository, onCompletionHandler: onCompletionHandler) {
+        // if exists -> Updates
+        // else: creates
+    }
+    
 }

@@ -145,18 +145,16 @@
 		1871960A27EBBE2E0019B07D /* Github */ = {
 			isa = PBXGroup;
 			children = (
+				88052B5127FBD374002A04CA /* Application */,
 				88C14A4927F38FDF00C3056A /* Model */,
 				88C14A4727F38FB800C3056A /* Services */,
 				88C14A4527F38E8500C3056A /* Views */,
 				18C1DB0527F63F9800051EAB /* Controllers */,
 				187B575227F8F68500B9F45B /* Helpers */,
-				1871960D27EBBE2E0019B07D /* SceneDelegate.swift */,
-				1871960B27EBBE2E0019B07D /* AppDelegate.swift */,
 				1871961727EBBE2F0019B07D /* Assets.xcassets */,
 				1871961927EBBE2F0019B07D /* LaunchScreen.storyboard */,
 				1871961C27EBBE2F0019B07D /* Info.plist */,
 				1871961427EBBE2E0019B07D /* Github.xcdatamodeld */,
-				9F6C0EDA27F5D19D008B49BB /* ManagedObjectContext.swift */,
 			);
 			path = Github;
 			sourceTree = "<group>";
@@ -209,6 +207,23 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		88052B5127FBD374002A04CA /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				1871960B27EBBE2E0019B07D /* AppDelegate.swift */,
+				1871960D27EBBE2E0019B07D /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		88052B5227FBD38C002A04CA /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				9F6C0EDA27F5D19D008B49BB /* ManagedObjectContext.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		88C14A4527F38E8500C3056A /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -231,6 +246,7 @@
 		88C14A4727F38FB800C3056A /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				88052B5227FBD38C002A04CA /* CoreData */,
 				88C14A4C27F394BA00C3056A /* NetworkingService.swift */,
 				88C14A4E27F3A03900C3056A /* GithubApi.swift */,
 			);
