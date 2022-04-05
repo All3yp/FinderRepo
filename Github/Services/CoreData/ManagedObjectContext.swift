@@ -141,6 +141,38 @@ extension ManagedObjectContext: ManagedListAllProtocol {
 
 }
 
+extension ManagedObjectContext {
+    func listAllIds() -> [Int] {
+
+        var listFavoriteRepositories: [Int] = []
+
+        let fecthRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: entity)
+        do {
+            guard let favoriteRepositories = try getContext().fetch(fecthRequest) as? [NSManagedObject] else {
+                print("Error in request ")
+                return []
+
+            }
+
+            for favoriteRepository in favoriteRepositories {
+
+                if let id = favoriteRepository.value(forKey: "id") as? Int,
+                   let isFavorite = favoriteRepository.value(forKey: "isFavorite") as? Bool {
+
+                    if isFavorite {
+                        listFavoriteRepositories.append(id)
+                    }
+                }
+            }
+
+        } catch let error as NSError {
+            print("Error in request \(error.localizedDescription)")
+        }
+        return listFavoriteRepositories
+    }
+
+}
+
 extension ManagedObjectContext: ManagedSelectProtocol {
     func select(id: Int, onCompletionHandler: (FavoriteRepository?) -> Void) {
         let context = getContext()
