@@ -9,7 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
     private let pickerOptions = ["Ascendente", "Descendente"]
-    public var reposOrdering = "asc"
+    public var orderingBy = "asc"
 
     // MARK: Lazy property variables
     lazy var repositories = GithubRepositories(totalCount: 0,
@@ -21,6 +21,10 @@ class HomeViewController: UIViewController {
             }
         }
     }
+
+    lazy var favoriteRepositories: GithubRepositories =  GithubRepositories(totalCount: 0,
+                                                                            incompleteResults: false,
+                                                                            items: [])
 
     lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
@@ -88,6 +92,7 @@ class HomeViewController: UIViewController {
 
         view.backgroundColor = .systemBackground
         getInitialRepositories()
+        setFavoritesStar()
 
         pickerView.selectRow(0, inComponent: 0, animated: true)
     }
@@ -95,11 +100,25 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationController()
+        updateHomeView()
     }
 
     private func updateHomeView() {
+        setFavoritesStar()
         searchController.isActive = false
         tableView.reloadData()
+    }
+
+    private func setFavoritesStar() {
+        let favRepositories = ManagedObjectContext.shared.listAllIds()
+        favoriteRepositories.items = repositories.items.map { repository in
+            var newRepository = repository
+            if favRepositories.contains(repository.id) {
+                newRepository.isFavorite = true
+            }
+
+            return newRepository
+        }
     }
 
     // MARK: UI Config, Create metrics file
@@ -139,8 +158,8 @@ class HomeViewController: UIViewController {
     @objc func onDoneButtonTapped() {
         toolBar.removeFromSuperview()
         pickerView.removeFromSuperview()
-        reposOrdering = pickerView.selectedRow(inComponent: 0) == 1 ? "desc" : "asc"
-        print(reposOrdering)
+        orderingBy = pickerView.selectedRow(inComponent: 0) == 1 ? "desc" : "asc"
+        print(orderingBy)
     }
 
     // MARK: Businees Rule method
@@ -158,7 +177,7 @@ class HomeViewController: UIViewController {
 
     // MARK: Businees Rule method
     private func getRepositoriesfrom(language: String, orderingBy: String) {
-        GithubApi.shared.getRepositoriesfrom(language: language, orderingBy: "desc") { response in
+        GithubApi.shared.getRepositoriesfrom(language: language, orderingBy: orderingBy) { response in
             switch response {
             case .success(let repositories):
                 self.repositories = repositories
@@ -184,6 +203,10 @@ extension HomeViewController: UITableViewDelegate {
                 self?.handleMoveToFavorite(repository: respository)
                 completion(true)
             }
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
+                self?.updateHomeView()
+            }
         }
         favorite.backgroundColor = .lightGray
         favorite.image = UIImage(systemName: "star.fill")
@@ -206,16 +229,12 @@ extension HomeViewController: UITableViewDelegate {
                 print(result)
             }
         }
-
-        let test = ManagedObjectContext.shared.listAll()
-
-        print(test.count)
     }
 }
 
 extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        repositories.items.count
+        favoriteRepositories.items.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -223,17 +242,17 @@ extension HomeViewController: UITableViewDataSource {
                                                        for: indexPath) as? CustomTableViewCell else {
             return UITableViewCell()
         }
-        let respository = repositories.items[indexPath.row]
-        cell.setup(name: respository.name,
-                   description: respository.itemDescription,
-                   image: respository.owner.avatarURL,
+        let repository = favoriteRepositories.items[indexPath.row]
+        cell.setup(name: repository.name,
+                   description: repository.itemDescription,
+                   image: repository.owner.avatarURL,
                    date: nil,
-                   isFavorite: indexPath.row.isMultiple(of: 2) ? true : false)
+                   isFavorite: repository.isFavorite ?? false)
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedRepo = repositories.items[indexPath.row]
+        let selectedRepo = favoriteRepositories.items[indexPath.row]
         let repoDetailController = DetailControllerFactory.makeDetailController(from: selectedRepo)
         self.navigationController?.pushViewController(repoDetailController, animated: true)
     }
