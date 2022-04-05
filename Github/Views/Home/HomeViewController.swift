@@ -8,6 +8,8 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+    private let pickerOptions = ["Ascendente", "Descendente"]
+    public var reposOrdering = "asc"
 
     // MARK: Lazy property variables
     lazy var repositories = GithubRepositories(totalCount: 0,
@@ -41,27 +43,53 @@ class HomeViewController: UIViewController {
         return search
     }()
 
+    lazy var pickerView: UIPickerView = {
+        let height = UIScreen.main.bounds.size.height
+        let width = UIScreen.main.bounds.size.width
+        var picker = UIPickerView()
+        picker.delegate = self
+        picker.dataSource = self
+        picker.backgroundColor = UIColor.white
+        picker.setValue(UIColor.black, forKey: "textColor")
+        picker.autoresizingMask = .flexibleWidth
+        picker.contentMode = .center
+        picker.frame = CGRect(x: 0.0, y: height - 300, width: width, height: 300)
+        return picker
+    }()
+
+    lazy var toolBar: UIToolbar = {
+        let height = UIScreen.main.bounds.size.height
+        let width = UIScreen.main.bounds.size.width
+        var toolbar = UIToolbar()
+        toolbar.frame = CGRect.init(x: 0.0, y: height - 300, width: width, height: 50)
+        toolbar.barStyle = .black
+        toolbar.items = [.init(title: "Selecionar", style: .done, target: self, action: #selector(onDoneButtonTapped))]
+        return toolbar
+    }()
+
     // MARK: Life Cycle
     /// Doubts:
     ///  configureNavigationController() should be called here?
     ///  should we add default response when one get blocked by Github API > XXXX requests per hour ?
     ///  should we identifyingInitialRepositoriesThatAreFavorite() at this point?
+    ///
+    init(titleNav: String) {
+        super.init(nibName: nil, bundle: nil)
+        title = titleNav
+    }
 
-	init(titleNav: String) {
-		super.init(nibName: nil, bundle: nil)
-		title = titleNav
-	}
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureUI()
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
-     configureUI()
-
-		view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemBackground
         getInitialRepositories()
+
+        pickerView.selectRow(0, inComponent: 0, animated: true)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -105,7 +133,14 @@ class HomeViewController: UIViewController {
 
     // MARK: Display ascd and desc Options? Anything else?
     @objc private func displayOptions() {
+        setupPicker()
+    }
 
+    @objc func onDoneButtonTapped() {
+        toolBar.removeFromSuperview()
+        pickerView.removeFromSuperview()
+        reposOrdering = pickerView.selectedRow(inComponent: 0) == 1 ? "desc" : "asc"
+        print(reposOrdering)
     }
 
     // MARK: Businees Rule method
@@ -133,6 +168,10 @@ class HomeViewController: UIViewController {
         }
     }
 
+    private func setupPicker() {
+        self.view.addSubview(pickerView)
+        self.view.addSubview(toolBar)
+    }
 }
 
 extension HomeViewController: UITableViewDelegate {
@@ -211,4 +250,22 @@ extension HomeViewController: UISearchResultsUpdating {
         let cancelButton = searchBar.value(forKey: "cancelButton") as! UIButton
         cancelButton.setTitle("Cancelar", for: .normal)
     }
+}
+
+extension HomeViewController: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerOptions.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerOptions[row]
+    }
+}
+
+extension HomeViewController: UIPickerViewDelegate {
+
 }
