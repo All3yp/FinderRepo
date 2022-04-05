@@ -21,7 +21,7 @@ import Foundation
 struct GithubRepositories: Codable {
     let totalCount: Int
     let incompleteResults: Bool
-    let items: [GithubRepository]
+    var items: [GithubRepository]
 
     enum CodingKeys: String, CodingKey {
         case totalCount = "total_count"
@@ -46,6 +46,7 @@ struct GithubRepository: Codable {
     let forks, openIssues, watchers: Int
     let visibility: String
     let license: License?
+    var isFavorite: Bool?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -56,7 +57,7 @@ struct GithubRepository: Codable {
         case itemPrivate = "private"
         case htmlURL = "html_url"
         case itemDescription = "description"
-        case fork, url
+        case fork, url, isFavorite
         case createdAt = "created_at"
         case updatedAt = "updated_at"
         case pushedAt = "pushed_at"
