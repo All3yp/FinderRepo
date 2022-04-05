@@ -192,15 +192,24 @@ extension HomeViewController: UITableViewDelegate {
     }
 
     private func handleMoveToFavorite(repository: GithubRepository) {
-        ManagedObjectContext.shared.update(id: repository.id, isFavorite: true) { result in
-            print(result)
+        var repo: FavoriteRepository?
+        ManagedObjectContext.shared.select(id: repository.id, onCompletionHandler: { result in
+            repo = result
+        })
+
+        if repo != nil {
+            ManagedObjectContext.shared.update(id: repo!.id, isFavorite: !repo!.isFavorite) { result in
+                print(result)
+            }
+        } else {
+            ManagedObjectContext.shared.create(repository: repository) { result in
+                print(result)
+            }
         }
-        
-//        ManagedObjectContext.shared.create(repository: repository) { result in
-//            print("opa \(result)")
-//        }
-        let opa = ManagedObjectContext.shared.listAll()
-        print(opa)
+
+        let test = ManagedObjectContext.shared.listAll()
+
+        print(test.count)
     }
 }
 
@@ -223,11 +232,11 @@ extension HomeViewController: UITableViewDataSource {
         return cell
     }
 
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let selectedRepo = repositories.items[indexPath.row]
-		let repoDetailController = DetailControllerFactory.makeDetailController(from: selectedRepo)
-		self.navigationController?.pushViewController(repoDetailController, animated: true)
-	}
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedRepo = repositories.items[indexPath.row]
+        let repoDetailController = DetailControllerFactory.makeDetailController(from: selectedRepo)
+        self.navigationController?.pushViewController(repoDetailController, animated: true)
+    }
 }
 
 extension HomeViewController: UISearchControllerDelegate {
