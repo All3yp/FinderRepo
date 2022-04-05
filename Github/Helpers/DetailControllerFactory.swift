@@ -71,7 +71,6 @@ class DetailControllerFactory {
 		return repoController
 	}
 
-
 //	static func makeDetailController(from profile: User ou Owner) -> DetailsViewController {
 //		let profileController = DetailsViewController(
 //			.init(
