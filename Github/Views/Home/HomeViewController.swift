@@ -9,7 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
     private let pickerOptions = ["Ascendente", "Descendente"]
-    public var orderingBy = "asc"
+    private var orderingBy = "asc"
 
     // MARK: Lazy property variables
     lazy var repositories = GithubRepositories(totalCount: 0,
@@ -177,7 +177,7 @@ class HomeViewController: UIViewController {
 
     // MARK: Businees Rule method
     private func getRepositoriesfrom(language: String, orderingBy: String) {
-        GithubApi.shared.getRepositoriesfrom(language: language, orderingBy: orderingBy) { response in
+        GithubApi.shared.getRepositoriesfrom(language: language, orderingBy: self.orderingBy) { response in
             switch response {
             case .success(let repositories):
                 self.repositories = repositories
