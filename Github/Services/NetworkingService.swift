@@ -27,10 +27,6 @@ enum NetworkingServiceError: LocalizedError {
     }
 }
 
-protocol AppBaseModel: Codable {
-
-}
-
 protocol AppBaseEndpoint {
     /*
      urlPath
