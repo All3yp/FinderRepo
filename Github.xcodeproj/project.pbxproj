@@ -26,7 +26,9 @@
 		1871963227EBBE2F0019B07D /* GithubUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1871963127EBBE2F0019B07D /* GithubUITestsLaunchTests.swift */; };
 		18C1DB0727F63FBF00051EAB /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C1DB0627F63FBF00051EAB /* CustomTabBarController.swift */; };
 		18C1DB0927F6402400051EAB /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C1DB0827F6402400051EAB /* FavoritesViewController.swift */; };
-		18C1DB0B27F640C500051EAB /* TeamDevViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C1DB0A27F640C500051EAB /* TeamDevViewController.swift */; };
+		18C7371727FD3CB500D57BEB /* ListDevViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C7371327FD3CB500D57BEB /* ListDevViewController.swift */; };
+		18C7371827FD3CB500D57BEB /* DevTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C7371427FD3CB500D57BEB /* DevTableViewCell.swift */; };
+		18C7371927FD3CB500D57BEB /* GithubUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C7371527FD3CB500D57BEB /* GithubUser.swift */; };
 		88C14A4127F38B1D00C3056A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 88C14A4027F38B1D00C3056A /* Alamofire */; };
 		88C14A4427F38CF200C3056A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 88C14A4327F38CF200C3056A /* Kingfisher */; };
 		88C14A4B27F3900200C3056A /* GithubRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C14A4A27F3900200C3056A /* GithubRepository.swift */; };
@@ -78,7 +80,9 @@
 		1871963127EBBE2F0019B07D /* GithubUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		18C1DB0627F63FBF00051EAB /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		18C1DB0827F6402400051EAB /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
-		18C1DB0A27F640C500051EAB /* TeamDevViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDevViewController.swift; sourceTree = "<group>"; };
+		18C7371327FD3CB500D57BEB /* ListDevViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListDevViewController.swift; sourceTree = "<group>"; };
+		18C7371427FD3CB500D57BEB /* DevTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevTableViewCell.swift; sourceTree = "<group>"; };
+		18C7371527FD3CB500D57BEB /* GithubUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubUser.swift; sourceTree = "<group>"; };
 		88C14A4A27F3900200C3056A /* GithubRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubRepository.swift; sourceTree = "<group>"; };
 		88C14A4C27F394BA00C3056A /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
 		88C14A4E27F3A03900C3056A /* GithubApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubApi.swift; sourceTree = "<group>"; };
@@ -201,18 +205,27 @@
 		18C1DB0527F63F9800051EAB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				18C7371327FD3CB500D57BEB /* ListDevViewController.swift */,
 				18C1DB0627F63FBF00051EAB /* CustomTabBarController.swift */,
-				18C1DB0A27F640C500051EAB /* TeamDevViewController.swift */,
 				18C1DB0827F6402400051EAB /* FavoritesViewController.swift */,
 				186E6A8427F7FCED00FA6110 /* DetailsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		18C7371127FD3C9000D57BEB /* ListDev */ = {
+			isa = PBXGroup;
+			children = (
+				18C7371427FD3CB500D57BEB /* DevTableViewCell.swift */,
+			);
+			path = ListDev;
+			sourceTree = "<group>";
+		};
 		88C14A4527F38E8500C3056A /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				186E6A8A27F8CC0B00FA6110 /* ViewCode.swift */,
+				18C7371127FD3C9000D57BEB /* ListDev */,
 				18C1DB0427F63F8D00051EAB /* Details */,
 				88C14A4627F38EA000C3056A /* Home */,
 			);
@@ -241,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				88C14A4A27F3900200C3056A /* GithubRepository.swift */,
+				18C7371527FD3CB500D57BEB /* GithubUser.swift */,
 				9F6C0EDC27F5F3AE008B49BB /* FavoriteRepository.swift */,
 			);
 			path = Model;
@@ -416,12 +430,13 @@
 				186E6A8D27F8CDA800FA6110 /* DetailsHeaderView.swift in Sources */,
 				1871961027EBBE2E0019B07D /* HomeViewController.swift in Sources */,
 				9F6C0EDB27F5D19D008B49BB /* ManagedObjectContext.swift in Sources */,
+				18C7371927FD3CB500D57BEB /* GithubUser.swift in Sources */,
+				18C7371827FD3CB500D57BEB /* DevTableViewCell.swift in Sources */,
 				9F6C0EDD27F5F3AE008B49BB /* FavoriteRepository.swift in Sources */,
 				18C1DB0927F6402400051EAB /* FavoritesViewController.swift in Sources */,
 				1871960C27EBBE2E0019B07D /* AppDelegate.swift in Sources */,
 				186E6A9127F8D15F00FA6110 /* DetailsFooterView.swift in Sources */,
 				88C14A9827F4A4A600C3056A /* CustomTableViewCell.swift in Sources */,
-				18C1DB0B27F640C500051EAB /* TeamDevViewController.swift in Sources */,
 				18C1DB0727F63FBF00051EAB /* CustomTabBarController.swift in Sources */,
 				186E6A9327F8E8A900FA6110 /* DetailControllerFactory.swift in Sources */,
 				1871961627EBBE2E0019B07D /* Github.xcdatamodeld in Sources */,
@@ -429,6 +444,7 @@
 				186E6A8F27F8CDE000FA6110 /* InfoTableViewCell.swift in Sources */,
 				88C14A4B27F3900200C3056A /* GithubRepository.swift in Sources */,
 				186E6A8727F7FD0500FA6110 /* DetailsView.swift in Sources */,
+				18C7371727FD3CB500D57BEB /* ListDevViewController.swift in Sources */,
 				186E6A8527F7FCED00FA6110 /* DetailsViewController.swift in Sources */,
 				88C14A4F27F3A03900C3056A /* GithubApi.swift in Sources */,
 				1871960E27EBBE2E0019B07D /* SceneDelegate.swift in Sources */,

@@ -75,6 +75,7 @@ final class NetworkingService: NetworkingServiceProtocol {
             case let .success(data):
                 completion(.success(data))
             case let .failure(error):
+					print(error)
                 completion(.failure(.requestError(error.localizedDescription)))
             }
         }
