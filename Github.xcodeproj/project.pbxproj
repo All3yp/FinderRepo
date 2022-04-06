@@ -35,6 +35,7 @@
 		88C14A4D27F394BA00C3056A /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C14A4C27F394BA00C3056A /* NetworkingService.swift */; };
 		88C14A4F27F3A03900C3056A /* GithubApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C14A4E27F3A03900C3056A /* GithubApi.swift */; };
 		88C14A9827F4A4A600C3056A /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C14A9727F4A4A600C3056A /* CustomTableViewCell.swift */; };
+		88D56DF027FE16F90049D28C /* WebBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D56DEF27FE16F90049D28C /* WebBrowser.swift */; };
 		88D69CAA27FD324600CBFAFE /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D69CA927FD324600CBFAFE /* HomeViewModel.swift */; };
 		9F6C0EDB27F5D19D008B49BB /* ManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C0EDA27F5D19D008B49BB /* ManagedObjectContext.swift */; };
 		9F6C0EDD27F5F3AE008B49BB /* FavoriteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C0EDC27F5F3AE008B49BB /* FavoriteRepository.swift */; };
@@ -88,6 +89,7 @@
 		88C14A4C27F394BA00C3056A /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
 		88C14A4E27F3A03900C3056A /* GithubApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubApi.swift; sourceTree = "<group>"; };
 		88C14A9727F4A4A600C3056A /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		88D56DEF27FE16F90049D28C /* WebBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebBrowser.swift; sourceTree = "<group>"; };
 		88D69CA927FD324600CBFAFE /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		9F6C0EDA27F5D19D008B49BB /* ManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectContext.swift; sourceTree = "<group>"; };
 		9F6C0EDC27F5F3AE008B49BB /* FavoriteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRepository.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 				88052B5227FBD38C002A04CA /* CoreData */,
 				88C14A4C27F394BA00C3056A /* NetworkingService.swift */,
 				88C14A4E27F3A03900C3056A /* GithubApi.swift */,
+				88D56DEF27FE16F90049D28C /* WebBrowser.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -457,6 +460,7 @@
 				186E6A8D27F8CDA800FA6110 /* DetailsHeaderView.swift in Sources */,
 				88D69CAA27FD324600CBFAFE /* HomeViewModel.swift in Sources */,
 				1871961027EBBE2E0019B07D /* HomeViewController.swift in Sources */,
+				88D56DF027FE16F90049D28C /* WebBrowser.swift in Sources */,
 				9F6C0EDB27F5D19D008B49BB /* ManagedObjectContext.swift in Sources */,
 				18C7371927FD3CB500D57BEB /* GithubUser.swift in Sources */,
 				18C7371827FD3CB500D57BEB /* DevTableViewCell.swift in Sources */,
