@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 class DetailControllerFactory {
-
 	/**
 	 ```
 	 // Exemplo de Uso
@@ -70,6 +69,47 @@ class DetailControllerFactory {
 
 		return repoController
 	}
+
+    static func makeDetailController(from repository: FavoriteRepository) -> DetailsViewController {
+        let repoController = DetailsViewController(
+            .init(
+                headerModel: .init(
+                    photo: repository.linkAvatar,
+                    description: repository.repositoryDescription ?? "No Description"
+                ),
+                infoCellModels: [
+                    .init(
+                        icon: UIImage(systemName: "person.circle")!,
+                        title: "Autor",
+                        description: repository.ownerName,
+                        tapHandle: nil
+                    ),
+                    .init(
+                        icon: UIImage(systemName: "eye")!,
+                        title: "Contagem de Observadores",
+                        description: "\(repository.watchersCount)",
+                        tapHandle: nil
+                    ),
+                    .init(
+                        icon: UIImage(systemName: "alarm.fill")!,
+                        title: "Data de Criação",
+                        description: DateFormatter().string(from: repository.createdAt),
+                        tapHandle: nil
+                    ),
+                    .init(
+                        icon: UIImage(systemName: "network")!,
+                        title: "Licença",
+                        description: repository.licenseTypeName ?? "None",
+                        tapHandle: nil
+                    )
+                ],
+                title: repository.name,
+                link: repository.repositoryUrl
+            )
+        )
+
+        return repoController
+    }
 
 //	static func makeDetailController(from profile: User ou Owner) -> DetailsViewController {
 //		let profileController = DetailsViewController(
