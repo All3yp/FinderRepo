@@ -1,4 +1,3 @@
-// swiftlint:disable force_cast
 //  ViewController.swift
 //  Github
 //
@@ -8,23 +7,15 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+
     private let pickerOptions = ["Ascendente", "Descendente"]
     private var orderingBy = "asc"
+    private let viewModel: HomeViewModel = HomeViewModel()
 
     // MARK: Lazy property variables
-    lazy var repositories = GithubRepositories(totalCount: 0,
-                                               incompleteResults: false,
-                                               items: []) {
-        didSet {
-            DispatchQueue.main.async {
-                self.updateHomeView()
-            }
-        }
-    }
-
-    lazy var favoriteRepositories: GithubRepositories =  GithubRepositories(totalCount: 0,
-                                                                            incompleteResults: false,
-                                                                            items: [])
+    lazy var favoriteRepositories = GithubRepositories(totalCount: 0,
+                                                       incompleteResults: false,
+                                                       items: [])
 
     lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
@@ -88,19 +79,23 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
-
-        view.backgroundColor = .systemBackground
-        getInitialRepositories()
-        setFavoritesStar()
-
-        pickerView.selectRow(0, inComponent: 0, animated: true)
+        viewModel.delegate = self
+        setupView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel.fetchRepositories()
+        setFavoritesStar()
         configureNavigationController()
         updateHomeView()
+        setupViewCode()
+    }
+
+    private func setupView() {
+        title = "Repositórios"
+        view.backgroundColor = .white
+        pickerView.selectRow(0, inComponent: 0, animated: true)
     }
 
     private func updateHomeView() {
@@ -111,28 +106,14 @@ class HomeViewController: UIViewController {
 
     private func setFavoritesStar() {
         let favRepositories = ManagedObjectContext.shared.listAllIds()
-        favoriteRepositories.items = repositories.items.map { repository in
+
+        favoriteRepositories.items = viewModel.repositories.items.map { repository in
             var newRepository = repository
             if favRepositories.contains(repository.id) {
                 newRepository.isFavorite = true
             }
-
             return newRepository
         }
-    }
-
-    // MARK: UI Config, Create metrics file
-    private func configureUI() {
-        title = "Repositórios"
-        view.backgroundColor = .white
-        view.addSubview(tableView)
-
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -0)
-        ])
     }
 
     // MARK: NavigationController Config
@@ -145,7 +126,6 @@ class HomeViewController: UIViewController {
                                               style: .plain,
                                               target: self,
                                               action: #selector(displayOptions))
-
         navigationItem.rightBarButtonItem = filterBarButton
         navigationItem.rightBarButtonItem?.tintColor = .black
     }
@@ -159,37 +139,27 @@ class HomeViewController: UIViewController {
         toolBar.removeFromSuperview()
         pickerView.removeFromSuperview()
         orderingBy = pickerView.selectedRow(inComponent: 0) == 1 ? "desc" : "asc"
-        print(orderingBy)
-    }
-
-    // MARK: Businees Rule method
-    private func getInitialRepositories() {
-        GithubApi.shared.getRepositories { response in
-            switch response {
-            case .success(let repositories):
-                self.repositories = repositories
-            case .failure(let error):
-                // MARK: Load Custom Error View!
-                print(error)
-            }
-        }
-    }
-
-    // MARK: Businees Rule method
-    private func getRepositoriesfrom(language: String, orderingBy: String) {
-        GithubApi.shared.getRepositoriesfrom(language: language, orderingBy: self.orderingBy) { response in
-            switch response {
-            case .success(let repositories):
-                self.repositories = repositories
-            case .failure(let error):
-                print(error)
-            }
-        }
     }
 
     private func setupPicker() {
-        self.view.addSubview(pickerView)
-        self.view.addSubview(toolBar)
+        view.addSubview(pickerView)
+        view.addSubview(toolBar)
+    }
+}
+
+extension HomeViewController: ViewCode {
+
+    func buildHierarchy() {
+        view.addSubview(tableView)
+    }
+
+    func setupConstraints() {
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -0)
+        ])
     }
 }
 
@@ -199,16 +169,16 @@ extension HomeViewController: UITableViewDelegate {
     ) -> UISwipeActionsConfiguration? {
         let favorite = UIContextualAction(style: .normal,
                                           title: "Favoritar") { [weak self] (_, _, completion) in
-            if let respository = self?.repositories.items[indexPath.row] {
+            // MARK: - BEDONE = Create method for get repository item from index
+            if let respository = self?.viewModel.repositories.items[indexPath.row] {
                 self?.handleMoveToFavorite(repository: respository)
                 completion(true)
             }
-
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
                 self?.updateHomeView()
             }
         }
-        favorite.backgroundColor = .lightGray
+        favorite.backgroundColor = .orange
         favorite.image = UIImage(systemName: "star.fill")
         let configuration = UISwipeActionsConfiguration(actions: [favorite])
         return configuration
@@ -222,11 +192,17 @@ extension HomeViewController: UITableViewDelegate {
 
         if repo != nil {
             ManagedObjectContext.shared.update(id: repo!.id, isFavorite: !repo!.isFavorite) { result in
-                print(result)
+
+                if case .failure(let error) = result {
+                    // TODO: Create Alert - suggestion: Create View extension to invoke the alert
+                    print(error.localizedDescription)
+                }
             }
         } else {
             ManagedObjectContext.shared.create(repository: repository) { result in
-                print(result)
+                if case .failure(let error) = result {
+                    print(error.localizedDescription)
+                }
             }
         }
     }
@@ -234,7 +210,7 @@ extension HomeViewController: UITableViewDelegate {
 
 extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        favoriteRepositories.items.count
+        viewModel.repositories.items.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -242,7 +218,7 @@ extension HomeViewController: UITableViewDataSource {
                                                        for: indexPath) as? CustomTableViewCell else {
             return UITableViewCell()
         }
-        let repository = favoriteRepositories.items[indexPath.row]
+        let repository = viewModel.repositories.items[indexPath.row]
         cell.setup(name: repository.name,
                    description: repository.itemDescription,
                    image: repository.owner.avatarURL,
@@ -252,19 +228,23 @@ extension HomeViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedRepo = favoriteRepositories.items[indexPath.row]
+        let selectedRepo = viewModel.repositories.items[indexPath.row]
         let repoDetailController = DetailControllerFactory.makeDetailController(from: selectedRepo)
-        self.navigationController?.pushViewController(repoDetailController, animated: true)
+        navigationController?.pushViewController(repoDetailController, animated: true)
     }
 }
 
-extension HomeViewController: UISearchControllerDelegate {
-
+extension HomeViewController: HomeViewDelegate {
+    func didUpdateRepositories() {
+        tableView.reloadData()
+    }
 }
 
-extension HomeViewController: UISearchBarDelegate {
+extension HomeViewController: UISearchControllerDelegate {}
 
-}
+extension HomeViewController: UISearchBarDelegate {}
+
+extension HomeViewController: UIPickerViewDelegate {}
 
 extension HomeViewController: UISearchResultsUpdating {
     // MARK: Pre-fetch repositories actions:
@@ -272,36 +252,24 @@ extension HomeViewController: UISearchResultsUpdating {
     /// enum Ordering { case ascending = "ascd" case descending = "desc") [particularidade da api]
     /// struct SearchPattern { let language: String, let ordering: Ordering }
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        setTitleCancelButton(searchBar)
         guard let rawTypedText = searchBar.text else { return }
         let typedText = rawTypedText.lowercased()
-        getRepositoriesfrom(language: typedText, orderingBy: "")
+        viewModel.fetchRepositories(from: typedText, orderingBy: "")
     }
 
-    func updateSearchResults(for searchController: UISearchController) {
-
-    }
-
-    private func setTitleCancelButton(_ searchBar: UISearchBar) {
-        let cancelButton = searchBar.value(forKey: "cancelButton") as! UIButton
-        cancelButton.setTitle("Cancelar", for: .normal)
-    }
+    func updateSearchResults(for searchController: UISearchController) {}
 }
 
 extension HomeViewController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        1
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerOptions.count
+        pickerOptions.count
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerOptions[row]
+        pickerOptions[row]
     }
-}
-
-extension HomeViewController: UIPickerViewDelegate {
-
 }
