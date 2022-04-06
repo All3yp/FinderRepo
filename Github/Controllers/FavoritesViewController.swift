@@ -127,12 +127,9 @@ extension FavoritesViewController: UITableViewDataSource {
         return cell
     }
 
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let selectedRepo = repositories[indexPath.row]
-//        let repoDetailController = DetailControllerFactory.makeDetailController(from: selectedRepo)
-//        self.navigationController?.pushViewController(repoDetailController, animated: true)
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedRepo = repositories[indexPath.row]
+        let repoDetailController = DetailControllerFactory.makeDetailController(from: selectedRepo)
+        self.navigationController?.pushViewController(repoDetailController, animated: true)
+    }
 }
-
-
-
