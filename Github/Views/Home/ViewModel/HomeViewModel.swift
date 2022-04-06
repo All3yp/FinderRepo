@@ -31,11 +31,11 @@ class HomeViewModel {
 	func fetchRepositories() {
 		GithubApi.shared.getRepositories { response in
 			switch response {
-				case .success(let repositories):
-					self.repositories = repositories
-				case .failure(let error):
-					// MARK: Load Custom Error View!
-					print(error)
+			case .success(let repositories):
+				self.repositories = repositories
+			case .failure(let error):
+				// MARK: Load Custom Error View!
+				print(error)
 			}
 		}
 	}
@@ -43,10 +43,10 @@ class HomeViewModel {
 	func fetchRepositories(from language: String, orderingBy: String) {
 		GithubApi.shared.getRepositoriesfrom(language: language, orderingBy: orderingBy) { response in
 			switch response {
-				case .success(let repositories):
-					self.repositories = repositories
-				case .failure(let error):
-					print(error)
+			case .success(let repositories):
+				self.repositories = repositories
+			case .failure(let error):
+				print(error)
 			}
 		}
 	}
