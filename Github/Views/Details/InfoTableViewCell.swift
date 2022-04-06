@@ -21,7 +21,7 @@ class InfoTableViewCell: UITableViewCell {
 	private let titleLabel: UILabel = {
 		let label = UILabel()
 		label.numberOfLines = 1
-		label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+		label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
 		label.textColor = .label
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
@@ -30,8 +30,9 @@ class InfoTableViewCell: UITableViewCell {
 	private let descriptionLabel: UILabel = {
 		let label = UILabel()
 		label.numberOfLines = 0
-		label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+		label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
 		label.textColor = .label
+		label.lineBreakMode = .byTruncatingHead
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
 	}()
@@ -71,7 +72,7 @@ extension InfoTableViewCell: ViewCode {
 	func setupConstraints() {
 		NSLayoutConstraint.activate([
 			stackView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-			stackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -20),
+			stackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -10),
 			stackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 20),
 			stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
 

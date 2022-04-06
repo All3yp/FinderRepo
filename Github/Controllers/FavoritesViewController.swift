@@ -38,8 +38,8 @@ class FavoritesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
         setupViewCode()
+		setupView()
     }
 
     override func viewWillAppear(_ animated: Bool) {

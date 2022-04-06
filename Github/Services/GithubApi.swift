@@ -16,7 +16,8 @@ protocol GithubApiRepositoriesProtocol {
 }
 
 final class GithubApi: GithubApiRepositoriesProtocol {
-    let url = "https://api.github.com/search/repositories?q=stars:%3E=10000+language:swift&sort=stars&order=desc"
+    let repoURL = "https://api.github.com/search/repositories?q=stars:%3E=10000+language:swift&sort=stars&order=desc"
+	let profileURL = "https://api.github.com/users/"
 
     private let networking: NetworkingService
 
@@ -29,8 +30,19 @@ final class GithubApi: GithubApiRepositoriesProtocol {
         return instance
     }
 
+	func getProfile(named username: String, completion: @escaping (Result<GithubUser, NetworkingServiceError>) -> Void) {
+		networking.request(url: profileURL+username, method: "", of: GithubUser.self) { response in
+			switch response {
+			case .success(let user):
+				completion(.success(user))
+			case .failure(let error):
+				completion(.failure(.requestError(error.localizedDescription)))
+			}
+		}
+	}
+
     func getRepositories(completion: @escaping (Result<GithubRepositories, NetworkingServiceError>) -> Void) {
-        networking.request(url: url, method: "", of: GithubRepositories.self) { response in
+        networking.request(url: repoURL, method: "", of: GithubRepositories.self) { response in
 
             switch response {
             case .success(let respositories):

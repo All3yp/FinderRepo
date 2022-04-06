@@ -80,7 +80,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.delegate = self
-        setupView()
+		setupViewCode()
+		setupView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -89,7 +90,6 @@ class HomeViewController: UIViewController {
         setFavoritesStar()
         configureNavigationController()
         updateHomeView()
-        setupViewCode()
     }
 
     private func setupView() {

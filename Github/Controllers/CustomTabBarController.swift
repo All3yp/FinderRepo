@@ -21,7 +21,7 @@ class CustomTabBarController: UITabBarController {
 
 		let homeVC = HomeViewController(titleNav: "List")
 		let favoritesVC = FavoritesViewController(titleNav: "Favoritos")
-		let teamDevVC = TeamDevViewController(titleNav: "Time de Desenvolvedores")
+		let teamDevVC = ListDevViewController(titleNav: "Time de Desenvolvedores")
 
 		self.viewControllers = [
 			embledNav(viewController: homeVC, title: "Home", image: "house.fill"),

@@ -30,7 +30,7 @@ class DetailControllerFactory {
 	 ```
 	 */
 	static func makeDetailController(from repository: GithubRepository) -> DetailsViewController {
-		let repoController = DetailsViewController(
+		DetailsViewController(
 			.init(
 				headerModel: .init(
 					photo: repository.owner.avatarURL,
@@ -66,8 +66,57 @@ class DetailControllerFactory {
 				link: repository.htmlURL
 			)
 		)
+	}
 
-		return repoController
+	static func makeDetailController(
+		from profile: GithubUser,
+		phone: String,
+		linkedin: String
+	) -> DetailsViewController {
+		DetailsViewController(
+			.init(
+				headerModel: .init(
+					photo: profile.avatarURL,
+					description: profile.bio ?? "No bio"
+				),
+				infoCellModels: [
+					.init(
+						icon: UIImage(systemName: "phone")!,
+						title: "Telefone",
+						description: phone,
+						tapHandle: {
+							// Chamar app do telefone passando o número
+						}
+					),
+					.init(
+						icon: UIImage(systemName: "mail")!,
+						title: "Email",
+						description: profile.email ?? "No email",
+						tapHandle: {
+							// Chamar app de email passando o email
+						}
+					),
+					.init(
+						icon: UIImage(systemName: "network")!,
+						title: "LinkedIn",
+						description: linkedin,
+						tapHandle: {
+							// Chamar browser ou app do linkedin passando o username
+						}
+					),
+					.init(
+						icon: UIImage(systemName: "network")!,
+						title: "Twitter",
+						description: profile.twitterUsername ?? "No twitter",
+						tapHandle: {
+							// Chamar browser ou app do twitter passando o twitter
+						}
+					)
+				],
+				title: profile.name ?? "No name",
+				link: nil
+			)
+		)
 	}
 
     static func makeDetailController(from repository: FavoriteRepository) -> DetailsViewController {
@@ -111,50 +160,4 @@ class DetailControllerFactory {
         return repoController
     }
 
-//	static func makeDetailController(from profile: User ou Owner) -> DetailsViewController {
-//		let profileController = DetailsViewController(
-//			.init(
-//				headerModel: .init(
-//					photo: "https://avatars.githubusercontent.com/u/29764688?",
-//					description: "iOS developer."
-//				),
-//				infoCellModels: [
-//					.init(
-//						icon: UIImage(systemName: "phone")!,
-//						title: "Telefone",
-//						description: "(00)0000-0000",
-//						tapHandle: {
-//							// Chamar app do telefone passando o número
-//						}
-//					),
-//					.init(
-//						icon: UIImage(systemName: "mail")!,
-//						title: "Email",
-//						description: "fulano@fulano.com.br",
-//						tapHandle: {
-//							// Chamar app de email passando o email
-//						}
-//					),
-//					.init(
-//						icon: UIImage(systemName: "network")!,
-//						title: "LinkedIn",
-//						description: "url",
-//						tapHandle: {
-//							// Chamar browser ou app do linkedin passando o username
-//						}
-//					),
-//					.init(
-//						icon: UIImage(systemName: "network")!,
-//						title: "Twitter",
-//						description: "url (opcional)",
-//						tapHandle: {
-//							// Chamar browser ou app do twitter passando o twitter
-//						}
-//					)
-//				],
-//				title: "All3yP",
-//				link: nil
-//			)
-//		)
-//	}
 }

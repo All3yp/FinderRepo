@@ -1,4 +1,4 @@
-// swiftlint:disable type_name force_cast line_length statement_position
+// swiftlint:disable type_name force_cast line_length
 
 import Foundation
 import CoreData
