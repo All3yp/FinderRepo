@@ -11,8 +11,8 @@ class FavoritesViewController: UIViewController {
     // MARK: Lazy property variables
     lazy var repositories = [FavoriteRepository]() {
         didSet {
-            DispatchQueue.main.async {
-                self.updateFavoritesView()
+            DispatchQueue.main.async { [weak self] in
+                self?.tableView.reloadData()
             }
         }
     }
@@ -38,10 +38,8 @@ class FavoritesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
-
-        view.backgroundColor = .systemBackground
-        getFavoriteRepositories()
+        setupView()
+        setupViewCode()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -50,21 +48,9 @@ class FavoritesViewController: UIViewController {
         getFavoriteRepositories()
     }
 
-    private func updateFavoritesView() {
-        tableView.reloadData()
-    }
-
-    private func configureUI() {
+    private func setupView() {
         title = "Repositórios"
         view.backgroundColor = .white
-        view.addSubview(tableView)
-
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
-        ])
     }
 
     private func configureNavigationController() {
@@ -76,12 +62,29 @@ class FavoritesViewController: UIViewController {
     }
 }
 
+extension FavoritesViewController: ViewCode {
+
+    func buildHierarchy() {
+        view.addSubview(tableView)
+    }
+
+    func setupConstraints() {
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+        ])
+    }
+}
+
 extension FavoritesViewController: UITableViewDelegate {
+
     func tableView(_ tableView: UITableView,
                    leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
         let favorite = UIContextualAction(style: .normal,
-                                          title: "Favoritar") { [weak self] (_, _, completion) in
+                                          title: "Remover") { [weak self] (_, _, completion) in
             if let respository = self?.repositories[indexPath.row] {
                 self?.handleMoveToFavorite(repository: respository)
                 completion(true)
@@ -90,7 +93,7 @@ extension FavoritesViewController: UITableViewDelegate {
                 self?.getFavoriteRepositories()
             }
         }
-        favorite.backgroundColor = .lightGray
+        favorite.backgroundColor = .red
         favorite.image = UIImage(systemName: "star.fill")
         let configuration = UISwipeActionsConfiguration(actions: [favorite])
         return configuration
@@ -109,6 +112,7 @@ extension FavoritesViewController: UITableViewDelegate {
 }
 
 extension FavoritesViewController: UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         repositories.count
     }
@@ -130,6 +134,6 @@ extension FavoritesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedRepo = repositories[indexPath.row]
         let repoDetailController = DetailControllerFactory.makeDetailController(from: selectedRepo)
-        self.navigationController?.pushViewController(repoDetailController, animated: true)
+        navigationController?.pushViewController(repoDetailController, animated: true)
     }
 }
