@@ -4,7 +4,7 @@ import Foundation
 import CoreData
 import UIKit
 
-typealias onCompletionHandler = (String) -> Void
+typealias onCompletionHandler = (Result<String, Error>) -> Void
 
 protocol ManagedListAllProtocol {
     func listAll() -> [FavoriteRepository]
@@ -63,10 +63,9 @@ extension ManagedObjectContext: ManagedCreateProtocol {
 
         do {
             try context.save()
-            onCompletionHandler("Save Success")
-        }
-        catch {
-            print("Error saving")
+            onCompletionHandler(.success("Saved"))
+        } catch {
+            onCompletionHandler(.failure(error))
         }
     }
 }
@@ -90,10 +89,10 @@ extension ManagedObjectContext: ManagedUpdateProtocol {
 
             try context.save()
 
-            onCompletionHandler("Update Success")
+            onCompletionHandler(.success("Update Success"))
 
-        } catch let error as NSError {
-            print("Fetch failed \(error.localizedDescription)")
+        } catch {
+            onCompletionHandler(.failure(error))
         }
     }
 }
