@@ -75,7 +75,7 @@ class DetailControllerFactory {
             .init(
                 headerModel: .init(
                     photo: repository.linkAvatar,
-                    description: repository.repositoryDescription ?? "No Description"
+                    description: repository.repositoryDescription
                 ),
                 infoCellModels: [
                     .init(
@@ -99,7 +99,7 @@ class DetailControllerFactory {
                     .init(
                         icon: UIImage(systemName: "network")!,
                         title: "Licença",
-                        description: repository.licenseTypeName ?? "None",
+                        description: repository.licenseTypeName,
                         tapHandle: nil
                     )
                 ],
