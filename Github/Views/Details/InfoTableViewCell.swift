@@ -32,6 +32,7 @@ class InfoTableViewCell: UITableViewCell {
 		label.numberOfLines = 0
 		label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
 		label.textColor = .label
+		label.lineBreakMode = .byTruncatingHead
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
 	}()

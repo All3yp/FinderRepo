@@ -48,9 +48,9 @@ class ListDevViewController: UIViewController {
 
 		let users = [
 			("All3yP", "(85)99999-8888", "https://www.linkedin.com/in/alley-pereira/"),
-			("r-fsantos", "(85)97777-8888", ""),
-			("alisonglima", "(85)98888-0000", ""),
-			("acsPrudencio", "(85)98899-7788", "")
+			("r-fsantos", "(85)97777-8888", "https://www.linkedin.com/in/renato-f-s-j%C3%BAnior-94313a114/"),
+			("alisonglima", "(85)98888-0000", "https://www.linkedin.com/in/alisonglima/"),
+			("acsPrudencio", "(85)98899-7788", "https://www.linkedin.com/in/acsprudencio/")
 		]
 
 		users.forEach { user in
