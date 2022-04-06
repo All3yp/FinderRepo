@@ -53,7 +53,7 @@ extension ManagedObjectContext: ManagedCreateProtocol {
         favoriteRepository.setValue(repository.name, forKey: "name")
         favoriteRepository.setValue(repository.itemDescription, forKey: "repositoryDescription")
         favoriteRepository.setValue(repository.owner.avatarURL, forKey: "linkAvatar")
-        favoriteRepository.setValue(repository.url, forKey: "repositoryUrl")
+        favoriteRepository.setValue(repository.htmlURL, forKey: "repositoryUrl")
         favoriteRepository.setValue(repository.owner.login, forKey: "ownerName")
         favoriteRepository.setValue(repository.watchers, forKey: "watchersCount")
         favoriteRepository.setValue(createdAt, forKey: "repositoryCreatedAt")
