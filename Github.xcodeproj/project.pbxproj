@@ -42,6 +42,8 @@
 		88D56DFD27FE8B250049D28C /* HomeViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D56DFC27FE8B250049D28C /* HomeViewModelDelegate.swift */; };
 		88D56E0127FF13450049D28C /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D56E0027FF13450049D28C /* FavoritesViewModel.swift */; };
 		88D56E0327FF17350049D28C /* FavoritesViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D56E0227FF17350049D28C /* FavoritesViewDelegate.swift */; };
+		88D56E0627FF6A1B0049D28C /* DetailsViewControllerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D56E0527FF6A1B0049D28C /* DetailsViewControllerConstants.swift */; };
+		88D56E0827FF6A690049D28C /* ListDevViewControllerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D56E0727FF6A690049D28C /* ListDevViewControllerConstants.swift */; };
 		88D69CAA27FD324600CBFAFE /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D69CA927FD324600CBFAFE /* HomeViewModel.swift */; };
 		9F6C0EDB27F5D19D008B49BB /* ManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C0EDA27F5D19D008B49BB /* ManagedObjectContext.swift */; };
 		9F6C0EDD27F5F3AE008B49BB /* FavoriteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C0EDC27F5F3AE008B49BB /* FavoriteRepository.swift */; };
@@ -102,6 +104,8 @@
 		88D56DFC27FE8B250049D28C /* HomeViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelDelegate.swift; sourceTree = "<group>"; };
 		88D56E0027FF13450049D28C /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
 		88D56E0227FF17350049D28C /* FavoritesViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewDelegate.swift; sourceTree = "<group>"; };
+		88D56E0527FF6A1B0049D28C /* DetailsViewControllerConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewControllerConstants.swift; sourceTree = "<group>"; };
+		88D56E0727FF6A690049D28C /* ListDevViewControllerConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDevViewControllerConstants.swift; sourceTree = "<group>"; };
 		88D69CA927FD324600CBFAFE /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		9F6C0EDA27F5D19D008B49BB /* ManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectContext.swift; sourceTree = "<group>"; };
 		9F6C0EDC27F5F3AE008B49BB /* FavoriteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRepository.swift; sourceTree = "<group>"; };
@@ -309,6 +313,8 @@
 			isa = PBXGroup;
 			children = (
 				88D56DF427FE50E50049D28C /* TabBarNavigationConstants.swift */,
+				88D56E0527FF6A1B0049D28C /* DetailsViewControllerConstants.swift */,
+				88D56E0727FF6A690049D28C /* ListDevViewControllerConstants.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -526,12 +532,14 @@
 				9F6C0EDD27F5F3AE008B49BB /* FavoriteRepository.swift in Sources */,
 				18C1DB0927F6402400051EAB /* FavoritesViewController.swift in Sources */,
 				1871960C27EBBE2E0019B07D /* AppDelegate.swift in Sources */,
+				88D56E0827FF6A690049D28C /* ListDevViewControllerConstants.swift in Sources */,
 				186E6A9127F8D15F00FA6110 /* DetailsFooterView.swift in Sources */,
 				88C14A9827F4A4A600C3056A /* CustomTableViewCell.swift in Sources */,
 				18C1DB0727F63FBF00051EAB /* CustomTabBarController.swift in Sources */,
 				88D56DFB27FE70710049D28C /* AppTheme.swift in Sources */,
 				186E6A9327F8E8A900FA6110 /* DetailControllerFactory.swift in Sources */,
 				1871961627EBBE2E0019B07D /* Github.xcdatamodeld in Sources */,
+				88D56E0627FF6A1B0049D28C /* DetailsViewControllerConstants.swift in Sources */,
 				88C14A4D27F394BA00C3056A /* NetworkingService.swift in Sources */,
 				186E6A8F27F8CDE000FA6110 /* InfoTableViewCell.swift in Sources */,
 				88C14A4B27F3900200C3056A /* GithubRepository.swift in Sources */,
