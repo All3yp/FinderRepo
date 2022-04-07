@@ -194,7 +194,7 @@ extension HomeViewController: UITableViewDelegate {
             ManagedObjectContext.shared.update(id: repo!.id, isFavorite: !repo!.isFavorite) { result in
 
                 if case .failure(let error) = result {
-                    // TODO: Create Alert - suggestion: Create View extension to invoke the alert
+                    // MARK: Create Alert - suggestion: Create View extension to invoke the alert
                     print(error.localizedDescription)
                 }
             }

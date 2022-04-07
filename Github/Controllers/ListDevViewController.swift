@@ -44,11 +44,11 @@ class ListDevViewController: UIViewController {
 		configConstraints()
 	}
 
-	private func getUsers() {
+	private func getUsers() { // renatofsjr
 
 		let users = [
 			("All3yP", "(85)99999-8888", "https://www.linkedin.com/in/alley-pereira/"),
-			("r-fsantos", "(85)97777-8888", "https://www.linkedin.com/in/renato-f-s-j%C3%BAnior-94313a114/"),
+			("r-fsantos", "(85)97777-8888", "https://www.linkedin.com/in/renatofsjr/"),
 			("alisonglima", "(85)98888-0000", "https://www.linkedin.com/in/alisonglima/"),
 			("acsPrudencio", "(85)98899-7788", "https://www.linkedin.com/in/acsprudencio/")
 		]
@@ -101,7 +101,8 @@ extension ListDevViewController: UITableViewDataSource {
 			return UITableViewCell()
 		}
 		let user = users[indexPath.row]
-		cell.setup(name: user.profile.login ?? "No Login", photo: user.profile.avatarURL, job: user.profile.bio)
+
+        cell.setup(name: user.profile.login ?? "No Login", photo: user.profile.avatarURL, job: user.profile.bio)
 		return cell
 	}
 
