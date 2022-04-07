@@ -9,7 +9,7 @@ import UIKit
 class HomeViewController: UIViewController {
 
     // MARK: Resolve enum, and private lets.
-    enum PickerConstants: String {
+    enum PickerStringConstants: String {
         case ascending = "asc"
         case descending = "desc"
     }
@@ -139,7 +139,7 @@ class HomeViewController: UIViewController {
         pickerView.removeFromSuperview()
         orderingBy = pickerView.selectedRow(
             inComponent: 0
-        ) == 1 ? PickerConstants.descending.rawValue : PickerConstants.ascending.rawValue
+        ) == 1 ? PickerStringConstants.descending.rawValue : PickerStringConstants.ascending.rawValue
     }
 
     private func setupPicker() {
@@ -157,9 +157,9 @@ extension HomeViewController: ViewCode {
     func setupConstraints() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -0)
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
 }
@@ -180,7 +180,7 @@ extension HomeViewController: UITableViewDelegate {
                 self?.handleMoveToFavorite(repository: repository)
                 if repository.isFavorite != nil {
                     if repository.isFavorite == true {
-                        title = "Poxa! :("
+                        title = "Poxa! 😔"
                         favoriteMessage = "Desfavoritado"
                     }
                 }
