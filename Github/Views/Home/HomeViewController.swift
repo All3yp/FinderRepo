@@ -8,7 +8,6 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
-    // MARK: Resolve enum, and private lets.
     enum PickerStringConstants: String {
         case ascending = "asc"
         case descending = "desc"
@@ -16,7 +15,7 @@ class HomeViewController: UIViewController {
 
     private let pickerOptions = ["Ascendente", "Descendente"]
     private var orderingBy = "asc"
-    private let viewModel: HomeViewModel = HomeViewModel()
+    internal var viewModel: HomeViewModel?
 
     lazy var favoriteRepositories = GithubRepositories(
         totalCount: 0,
@@ -82,11 +81,11 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.delegate = self
+        viewModel?.delegate = self
         setupViewCode()
         setupView()
         setupNavigationController()
-        viewModel.fetchRepositories(from: nil, orderingBy: orderingBy)
+        viewModel?.fetchRepositories(from: nil, orderingBy: orderingBy)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -108,7 +107,7 @@ class HomeViewController: UIViewController {
     private func setFavoritesStar() {
         let favRepositories = ManagedObjectContext.shared.listAllIds()
 
-        if let repositories = viewModel.repositories {
+        if let repositories = viewModel?.repositories {
             favoriteRepositories.items = repositories.items.map { repository in
                 var newRepository = repository
                 if favRepositories.contains(repository.id) {
@@ -173,7 +172,6 @@ extension HomeViewController: UITableViewDelegate {
             title: "Favoritar"
         ) { [weak self] (_, _, completion) in
 
-            // MARK: - BEDONE = Create method for get repository item from index
             if let repository = self?.favoriteRepositories.items[indexPath.row] {
                 var title = "Eba!"
                 var favoriteMessage = "Favoritado"
@@ -215,14 +213,27 @@ extension HomeViewController: UITableViewDelegate {
             ManagedObjectContext.shared.update(id: repo!.id, isFavorite: !repo!.isFavorite) { result in
 
                 if case .failure(let error) = result {
-                    // MARK: to be done Create Alert - suggestion: Create View extension to invoke the alert
-                    print(error.localizedDescription)
+                    let errorAlert = AppTheme.buildActionAllertDefault(
+                        allertTitle: "Erro ao favoritar repositório",
+                        message: error.localizedDescription,
+                        actionTitle: "Tentar Novamente",
+                        style: .destructive,
+                        handler: nil
+                    )
+                    present(errorAlert, animated: true, completion: nil)
                 }
             }
         } else {
             ManagedObjectContext.shared.create(repository: repository) { result in
                 if case .failure(let error) = result {
-                    print(error.localizedDescription)
+                    let errorAlert = AppTheme.buildActionAllertDefault(
+                        allertTitle: "Erro ao favoritar repositório",
+                        message: error.localizedDescription,
+                        actionTitle: "Tentar Novamente",
+                        style: .destructive,
+                        handler: nil
+                    )
+                    present(errorAlert, animated: true, completion: nil)
                 }
             }
         }
@@ -251,7 +262,7 @@ extension HomeViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let repositories = viewModel.repositories {
+        if let repositories = viewModel?.repositories {
             let selectedRepo = repositories.items[indexPath.row]
             let repoDetailController = DetailControllerFactory.makeDetailController(from: selectedRepo)
             navigationController?.pushViewController(repoDetailController, animated: true)
@@ -284,7 +295,7 @@ extension HomeViewController: UISearchResultsUpdating {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         guard let rawTypedText = searchBar.text else { return }
         let typedText = rawTypedText.lowercased()
-        viewModel.fetchRepositories(from: typedText, orderingBy: orderingBy)
+        viewModel?.fetchRepositories(from: typedText, orderingBy: orderingBy)
         DispatchQueue.main.async {
             searchBar.setShowsCancelButton(false, animated: true)
         }
