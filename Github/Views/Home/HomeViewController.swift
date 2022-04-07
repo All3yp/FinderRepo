@@ -274,13 +274,27 @@ extension HomeViewController: HomeViewDelegate {
 
 extension HomeViewController: UISearchControllerDelegate {}
 
-extension HomeViewController: UISearchBarDelegate {}
+extension HomeViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        DispatchQueue.main.async {
+            searchBar.setShowsCancelButton(false, animated: true)
+        }
+    }
+}
 
 extension HomeViewController: UISearchResultsUpdating {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         guard let rawTypedText = searchBar.text else { return }
         let typedText = rawTypedText.lowercased()
         viewModel.fetchRepositories(from: typedText, orderingBy: orderingBy)
+        DispatchQueue.main.async {
+            searchBar.setShowsCancelButton(false, animated: true)
+        }
+    }
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        DispatchQueue.main.async {
+            searchBar.setShowsCancelButton(true, animated: true)
+        }
     }
 
     func updateSearchResults(for searchController: UISearchController) {}
