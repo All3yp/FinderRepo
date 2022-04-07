@@ -24,7 +24,8 @@ class SendMailController: MFMailComposeViewController {
 }
 
 extension SendMailController: MFMailComposeViewControllerDelegate {
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+    func mailComposeController(_ controller: MFMailComposeViewController,
+                               didFinishWith result: MFMailComposeResult, error: Error?) {
         switch result {
         case .cancelled:
             print("cancelled")
