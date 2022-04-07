@@ -18,10 +18,6 @@ protocol ManagedUpdateProtocol {
     func update(id: Int, isFavorite: Bool, onCompletionHandler: onCompletionHandler)
 }
 
-protocol ManagedUpsertProtocol {
-    func upsert(repository: GithubRepository, onCompletionHandler: onCompletionHandler)
-}
-
 protocol ManagedSelectProtocol {
     func select(id: Int, onCompletionHandler: (FavoriteRepository?) -> Void)
 }
@@ -210,11 +206,4 @@ extension ManagedObjectContext: ManagedSelectProtocol {
         }
     }
 
-}
-
-extension ManagedObjectContext: ManagedUpsertProtocol {
-    func upsert(repository: GithubRepository, onCompletionHandler: onCompletionHandler) {
-        // if exists -> Updates
-        // else: creates
-    }
 }

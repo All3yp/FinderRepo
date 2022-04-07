@@ -6,16 +6,6 @@
 //
 
 import Foundation
-// MARK: Add Data Formatting
-//    init(from decoder: Decoder) throws {
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//
-//        let createAtPrimiteString = try container.decode(String.self, forKey: .createdAt)
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat
-//        dateFormatter.timeZone = TimeZone.current
-//        let date = dateFormatter.date(from: createAtPrimiteString)
-//    }
 
 // MARK: - GitHubRepositories
 struct GithubRepositories: Codable {
