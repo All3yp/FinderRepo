@@ -7,8 +7,6 @@
 
 import Foundation
 
-// create protocol vars .. .{get}
-
 struct TabBarConstants {
     static let selectedIndex = 3
 }
