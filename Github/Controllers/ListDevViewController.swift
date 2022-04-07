@@ -46,10 +46,10 @@ class ListDevViewController: UIViewController {
 	private func getUsers() { // renatofsjr
 
 		let users = [
-			("All3yP", "(85)99999-8888", "https://www.linkedin.com/in/alley-pereira/"),
-			("r-fsantos", "(85)97777-8888", "https://www.linkedin.com/in/renatofsjr/"),
-			("alisonglima", "(85)98888-0000", "https://www.linkedin.com/in/alisonglima/"),
-			("acsPrudencio", "(85)98899-7788", "https://www.linkedin.com/in/acsprudencio/")
+			("All3yP", "+55(85)999998888", "https://www.linkedin.com/in/alley-pereira/"),
+			("r-fsantos", "+55(85)977778888", "https://www.linkedin.com/in/renatofsjr/"),
+			("alisonglima", "+55(85)988880000", "https://www.linkedin.com/in/alisonglima/"),
+			("acsPrudencio", "+55(85)988997788", "https://www.linkedin.com/in/acsprudencio/")
 		]
 
 		users.forEach { user in

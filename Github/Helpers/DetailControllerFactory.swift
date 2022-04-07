@@ -85,7 +85,7 @@ class DetailControllerFactory {
 						title: "Telefone",
 						description: phone,
 						tapHandle: {
-							// Chamar app do telefone passando o número
+                            DeepLinkHandler.openURL(from: phone, type: .telephone)
 						}
 					),
 					.init(
@@ -93,7 +93,9 @@ class DetailControllerFactory {
 						title: "Email",
 						description: profile.email ?? "No email",
 						tapHandle: {
-							// Chamar app de email passando o email
+                            if profile.email != nil {
+                                SendMailController().sendEmail(recipient: profile.email!)
+                            }
 						}
 					),
 					.init(
@@ -101,7 +103,7 @@ class DetailControllerFactory {
 						title: "LinkedIn",
 						description: linkedin,
 						tapHandle: {
-							// Chamar browser ou app do linkedin passando o username
+                            DeepLinkHandler.openURL(from: linkedin, type: .linkedin)
 						}
 					),
 					.init(
@@ -109,7 +111,9 @@ class DetailControllerFactory {
 						title: "Twitter",
 						description: profile.twitterUsername ?? "No twitter",
 						tapHandle: {
-							// Chamar browser ou app do twitter passando o twitter
+                            if profile.twitterUsername != nil {
+                                DeepLinkHandler.openURL(from: profile.twitterUsername!, type: .twitter)
+                            }
 						}
 					)
 				],
