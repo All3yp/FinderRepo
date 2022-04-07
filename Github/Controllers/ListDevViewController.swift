@@ -20,7 +20,6 @@ class ListDevViewController: UIViewController {
 		didSet {
 			DispatchQueue.main.async {
 				self.tableview.reloadData()
-				print(self.users)
 			}
 		}
 	}
