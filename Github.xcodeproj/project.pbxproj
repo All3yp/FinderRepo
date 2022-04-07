@@ -45,6 +45,8 @@
 		88D69CAA27FD324600CBFAFE /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D69CA927FD324600CBFAFE /* HomeViewModel.swift */; };
 		9F6C0EDB27F5D19D008B49BB /* ManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C0EDA27F5D19D008B49BB /* ManagedObjectContext.swift */; };
 		9F6C0EDD27F5F3AE008B49BB /* FavoriteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C0EDC27F5F3AE008B49BB /* FavoriteRepository.swift */; };
+		9FC5ABFB27FF4DA200AEB1EB /* DeepLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC5ABFA27FF4DA200AEB1EB /* DeepLinkHandler.swift */; };
+		9FC5ABFD27FF7CE300AEB1EB /* SendMailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC5ABFC27FF7CE300AEB1EB /* SendMailController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +107,8 @@
 		88D69CA927FD324600CBFAFE /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		9F6C0EDA27F5D19D008B49BB /* ManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectContext.swift; sourceTree = "<group>"; };
 		9F6C0EDC27F5F3AE008B49BB /* FavoriteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRepository.swift; sourceTree = "<group>"; };
+		9FC5ABFA27FF4DA200AEB1EB /* DeepLinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkHandler.swift; sourceTree = "<group>"; };
+		9FC5ABFC27FF7CE300AEB1EB /* SendMailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMailController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				186E6A9227F8E8A900FA6110 /* DetailControllerFactory.swift */,
+				9FC5ABFA27FF4DA200AEB1EB /* DeepLinkHandler.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -225,6 +230,7 @@
 				18C7371327FD3CB500D57BEB /* ListDevViewController.swift */,
 				18C1DB0627F63FBF00051EAB /* CustomTabBarController.swift */,
 				186E6A8427F7FCED00FA6110 /* DetailsViewController.swift */,
+				9FC5ABFC27FF7CE300AEB1EB /* SendMailController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -533,6 +539,7 @@
 				18C7371827FD3CB500D57BEB /* DevTableViewCell.swift in Sources */,
 				9F6C0EDD27F5F3AE008B49BB /* FavoriteRepository.swift in Sources */,
 				18C1DB0927F6402400051EAB /* FavoritesViewController.swift in Sources */,
+				9FC5ABFD27FF7CE300AEB1EB /* SendMailController.swift in Sources */,
 				1871960C27EBBE2E0019B07D /* AppDelegate.swift in Sources */,
 				186E6A9127F8D15F00FA6110 /* DetailsFooterView.swift in Sources */,
 				88C14A9827F4A4A600C3056A /* CustomTableViewCell.swift in Sources */,
@@ -549,6 +556,7 @@
 				18C7371727FD3CB500D57BEB /* ListDevViewController.swift in Sources */,
 				186E6A8527F7FCED00FA6110 /* DetailsViewController.swift in Sources */,
 				88D56DF827FE549E0049D28C /* Colors.swift in Sources */,
+				9FC5ABFB27FF4DA200AEB1EB /* DeepLinkHandler.swift in Sources */,
 				88C14A4F27F3A03900C3056A /* GithubApi.swift in Sources */,
 				1871960E27EBBE2E0019B07D /* SceneDelegate.swift in Sources */,
 				186E6A8B27F8CC0B00FA6110 /* ViewCode.swift in Sources */,
