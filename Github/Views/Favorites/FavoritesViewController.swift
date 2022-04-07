@@ -8,22 +8,17 @@
 import UIKit
 
 class FavoritesViewController: UIViewController {
-    // MARK: Lazy property variables
-    lazy var repositories = [FavoriteRepository]() {
-        didSet {
-            DispatchQueue.main.async { [weak self] in
-                self?.tableView.reloadData()
-            }
-        }
-    }
+
+    var viewModel: FavoritesViewModel = FavoritesViewModel()
 
     lazy var tableView: UITableView = {
-        let table = UITableView(frame: .zero, style: .plain)
-        table.delegate = self
-        table.dataSource = self
-        table.translatesAutoresizingMaskIntoConstraints = false
-        table.register(CustomTableViewCell.self,
-                       forCellReuseIdentifier: CustomTableViewCell.identifier)
+        let table = AppTheme.buildTableView(
+            frame: .zero,
+            style: .plain,
+            delegateReference: self,
+            cellClass: CustomTableViewCell.self,
+            cellClassIdentifier: CustomTableViewCell.self.identifier
+        )
         return table
     }()
 
@@ -38,8 +33,10 @@ class FavoritesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.delegate = self
         setupViewCode()
-		setupView()
+        setupView()
+        getFavoriteRepositories()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -49,8 +46,8 @@ class FavoritesViewController: UIViewController {
     }
 
     private func setupView() {
-        title = "Repositórios"
-        view.backgroundColor = .white
+        title = viewModel.title
+        view.backgroundColor = viewModel.backgroundColor
     }
 
     private func configureNavigationController() {
@@ -58,7 +55,13 @@ class FavoritesViewController: UIViewController {
     }
 
     private func getFavoriteRepositories() {
-        repositories = ManagedObjectContext.shared.listAll()
+        viewModel.fetchFavoriteRepositories()
+    }
+
+    private func favoritesViewUpdate() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+            self.tableView.reloadData()
+        }
     }
 }
 
@@ -78,6 +81,17 @@ extension FavoritesViewController: ViewCode {
     }
 }
 
+extension FavoritesViewController: FavoritesViewDelegate {
+    func didUpdateFavoriteRepositories() {
+        favoritesViewUpdate()
+    }
+
+    func didUpdateFavoriteRepositoryWithSuccess(successAlert: UIAlertController) {
+        present(successAlert, animated: true, completion: nil)
+        favoritesViewUpdate()
+    }
+}
+
 extension FavoritesViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView,
@@ -85,12 +99,9 @@ extension FavoritesViewController: UITableViewDelegate {
     ) -> UISwipeActionsConfiguration? {
         let favorite = UIContextualAction(style: .normal,
                                           title: "Remover") { [weak self] (_, _, completion) in
-            if let respository = self?.repositories[indexPath.row] {
-                self?.handleMoveToFavorite(repository: respository)
+            if let repository = self?.viewModel.getFavoriteRepository(from: indexPath.row) {
+                self?.viewModel.updateFavoriteRepository(repository)
                 completion(true)
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-                self?.getFavoriteRepositories()
             }
         }
         favorite.backgroundColor = .red
@@ -98,23 +109,12 @@ extension FavoritesViewController: UITableViewDelegate {
         let configuration = UISwipeActionsConfiguration(actions: [favorite])
         return configuration
     }
-
-    private func handleMoveToFavorite(repository: FavoriteRepository) {
-        var repo: FavoriteRepository?
-        ManagedObjectContext.shared.select(id: repository.id, onCompletionHandler: { result in
-            repo = result
-        })
-
-        ManagedObjectContext.shared.update(id: repo!.id, isFavorite: !repo!.isFavorite) { result in
-            print(result)
-        }
-    }
 }
 
 extension FavoritesViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        repositories.count
+        viewModel.favoriteRepositories?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -122,18 +122,20 @@ extension FavoritesViewController: UITableViewDataSource {
                                                        for: indexPath) as? CustomTableViewCell else {
             return UITableViewCell()
         }
-        let respository = repositories[indexPath.row]
-        cell.setup(name: respository.name,
-                   description: respository.repositoryDescription,
-                   image: respository.linkAvatar,
+        if let repository = viewModel.favoriteRepositories?[indexPath.row] {
+        cell.setup(name: repository.name,
+                   description: repository.repositoryDescription,
+                   image: repository.linkAvatar,
                    date: nil,
                    isFavorite: true)
+        }
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedRepo = repositories[indexPath.row]
-        let repoDetailController = DetailControllerFactory.makeDetailController(from: selectedRepo)
-        navigationController?.pushViewController(repoDetailController, animated: true)
+        if let selectedRepo = viewModel.favoriteRepositories?[indexPath.row] {
+            let repoDetailController = DetailControllerFactory.makeDetailController(from: selectedRepo)
+            navigationController?.pushViewController(repoDetailController, animated: true)
+        }
     }
 }

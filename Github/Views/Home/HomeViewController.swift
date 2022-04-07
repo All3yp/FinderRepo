@@ -8,7 +8,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
-    // TODO: Resolve enum, and private lets.
+    // MARK: Resolve enum, and private lets.
     enum PickerConstants: String {
         case ascending = "asc"
         case descending = "desc"
@@ -91,7 +91,7 @@ class HomeViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.fetchRepositories(from: nil, orderingBy: orderingBy)
+//        viewModel.fetchRepositories(from: nil, orderingBy: orderingBy)
         updateHomeView()
     }
 
@@ -188,14 +188,14 @@ extension HomeViewController: UITableViewDelegate {
                     }
                 }
                 let allertMessage = "Repositório \(repository.name) \(favoriteMessage)!"
-                let allertFavoriteSuccess = AppTheme.buildActionAllertDefault(
+                let allertFavorite = AppTheme.buildActionAllertDefault(
                     allertTitle: title,
                     message: allertMessage,
                     actionTitle: "OK",
                     style: .default,
                     handler: nil
                 )
-                self?.present(allertFavoriteSuccess, animated: true, completion: nil)
+                self?.present(allertFavorite, animated: true, completion: nil)
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
                     self?.updateHomeView()
                 }
