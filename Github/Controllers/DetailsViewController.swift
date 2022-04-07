@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class DetailsViewController: UIViewController {
 
@@ -41,9 +42,35 @@ class DetailsViewController: UIViewController {
 extension DetailsViewController: DetailsFooterViewDelegate {
 	func didPressRepositoryButton(_ repository: URL) {
 		print("PRESSED REPO \(repository.description)")
-		// Open webview
-		// ...
+        goTo(url: repository.description)
 	}
+}
+
+extension DetailsViewController: WebBrowser {
+    func goTo(url: String) {
+        if let url = URL(string: url) {
+            let configuration = SFSafariViewController.Configuration()
+            configuration.entersReaderIfAvailable = false
+
+            let safariViewController = SFSafariViewController(url: url, configuration: configuration)
+            safariViewController.delegate = self
+            safariViewController.dismissButtonStyle = .close
+            present(safariViewController, animated: true)
+        } else {
+            // MARK: Create alert or Deeplinking
+        }
+    }
+
+    func safariViewController(_ controller: SFSafariViewController, didCompleteInitialLoad didLoadSuccessfully: Bool) {
+        print("didLoadSuccessfully \(didLoadSuccessfully)")
+    }
+
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        controller.dismiss(animated: true) {
+            print("Do something")
+        }
+    }
+
 }
 
 extension DetailsViewController: UITableViewDataSource {
