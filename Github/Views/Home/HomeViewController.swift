@@ -24,20 +24,22 @@ class HomeViewController: UIViewController {
     )
 
     lazy var tableView: UITableView = {
-        let table = AppTheme.buildTableView(frame: .zero,
-                                            style: .plain,
-                                            delegateReference: self)
+        let table = AppTheme.buildTableView(
+            frame: .zero,
+            style: .plain,
+            delegateReference: self,
+            cellClass: CustomTableViewCell.self,
+            cellClassIdentifier: CustomTableViewCell.self.identifier
+        )
         return table
     }()
 
     lazy var searchController: UISearchController = {
-        let search = UISearchController(searchResultsController: nil)
-        search.delegate = self
-        search.searchBar.delegate = self
-        search.searchResultsUpdater = self
-        search.obscuresBackgroundDuringPresentation = true
-        search.searchBar.translatesAutoresizingMaskIntoConstraints = false
-        search.searchBar.placeholder = "Vamos aprender uma linguagem hoje?"
+        let search = AppTheme.buildSearchController(
+            searchResultsController: nil,
+            delegateReference: self,
+            placeholder: "Vamos aprender uma linguagem hoje?"
+        )
         return search
     }()
 
@@ -80,7 +82,6 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.delegate = self
-        tableView = AppTheme.buildTableView(frame: .zero, style: .plain, delegateReference: self)
         setupViewCode()
         setupView()
         configureNavigationController()
@@ -90,7 +91,6 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.fetchRepositories(from: nil, orderingBy: orderingBy)
-//        setFavoritesStar()
         updateHomeView()
     }
 
@@ -237,8 +237,10 @@ extension HomeViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier,
-                                                       for: indexPath) as? CustomTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: CustomTableViewCell.identifier,
+            for: indexPath
+        ) as? CustomTableViewCell else {
             return UITableViewCell()
         }
         let repository = favoriteRepositories.items[indexPath.row]

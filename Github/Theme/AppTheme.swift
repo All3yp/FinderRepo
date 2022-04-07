@@ -30,15 +30,33 @@ class AppTheme {
     static func buildTableView(
         frame: CGRect,
         style: UITableView.Style,
-        delegateReference: UIViewController
+        delegateReference: UIViewController,
+        cellClass: AnyClass?,
+        cellClassIdentifier: String
     ) -> UITableView {
         let table = UITableView(frame: frame, style: style)
         table.delegate = delegateReference.self as? UITableViewDelegate
         table.dataSource = delegateReference.self as? UITableViewDataSource
         table.translatesAutoresizingMaskIntoConstraints = false
-        table.register(CustomTableViewCell.self,
-                       forCellReuseIdentifier: CustomTableViewCell.identifier)
+        table.register(cellClass.self,
+                       forCellReuseIdentifier: cellClassIdentifier)
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }
+
+    static func buildSearchController(
+        searchResultsController: UIViewController?,
+        delegateReference: UIViewController,
+        placeholder: String
+    ) -> UISearchController {
+        let search = UISearchController(searchResultsController: searchResultsController)
+        search.delegate = delegateReference.self as? UISearchControllerDelegate
+        search.searchBar.delegate = delegateReference.self as? UISearchBarDelegate
+        search.searchResultsUpdater = delegateReference.self as? UISearchResultsUpdating
+        search.obscuresBackgroundDuringPresentation = true
+        search.searchBar.translatesAutoresizingMaskIntoConstraints = false
+        search.searchBar.placeholder = placeholder
+        return search
+    }
+
 }

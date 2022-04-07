@@ -302,16 +302,8 @@
 			isa = PBXGroup;
 			children = (
 				88D56DF427FE50E50049D28C /* TabBarNavigationConstants.swift */,
-				88D56DF227FE50CB0049D28C /* Home */,
 			);
 			path = Commons;
-			sourceTree = "<group>";
-		};
-		88D56DF227FE50CB0049D28C /* Home */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Home;
 			sourceTree = "<group>";
 		};
 		88D56DF627FE539A0049D28C /* DesignSystem */ = {
