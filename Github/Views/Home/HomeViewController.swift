@@ -8,6 +8,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
+    // TODO: Resolve enum, and private lets.
     enum PickerConstants: String {
         case ascending = "asc"
         case descending = "desc"
