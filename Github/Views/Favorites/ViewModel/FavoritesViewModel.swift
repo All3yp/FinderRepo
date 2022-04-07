@@ -10,7 +10,7 @@ import UIKit
 
 class FavoritesViewModel {
 
-    let title = "Repositórios Favoritados"
+    let title = FavoritesConstants.titleNav
     let backgroundColor = UIColor.white
 
     var favoriteRepositories: [FavoriteRepository]?
