@@ -85,13 +85,12 @@ class HomeViewController: UIViewController {
         viewModel.delegate = self
         setupViewCode()
         setupView()
-        configureNavigationController()
+        setupNavigationController()
         viewModel.fetchRepositories(from: nil, orderingBy: orderingBy)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        viewModel.fetchRepositories(from: nil, orderingBy: orderingBy)
         updateHomeView()
     }
 
@@ -106,7 +105,6 @@ class HomeViewController: UIViewController {
         tableView.reloadData()
     }
 
-    // MARK: Move to ViewModel
     private func setFavoritesStar() {
         let favRepositories = ManagedObjectContext.shared.listAllIds()
 
@@ -121,7 +119,7 @@ class HomeViewController: UIViewController {
         }
     }
 
-    private func configureNavigationController() {
+    private func setupNavigationController() {
         navigationItem.searchController = searchController
 
         let filterBarButton = UIBarButtonItem(image: UIImage.init(systemName: "slider.horizontal.3"),
@@ -132,7 +130,6 @@ class HomeViewController: UIViewController {
         navigationItem.rightBarButtonItem?.tintColor = .black
     }
 
-    // MARK: Display ascd and desc Options? Anything else?
     @objc private func displayOptions() {
         setupPicker()
     }

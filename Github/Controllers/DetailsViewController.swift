@@ -41,7 +41,6 @@ class DetailsViewController: UIViewController {
 
 extension DetailsViewController: DetailsFooterViewDelegate {
 	func didPressRepositoryButton(_ repository: URL) {
-		print("PRESSED REPO \(repository.description)")
         goTo(url: repository.description)
 	}
 }
@@ -56,21 +55,8 @@ extension DetailsViewController: WebBrowser {
             safariViewController.delegate = self
             safariViewController.dismissButtonStyle = .close
             present(safariViewController, animated: true)
-        } else {
-            // MARK: Create alert or Deeplinking
         }
     }
-
-    func safariViewController(_ controller: SFSafariViewController, didCompleteInitialLoad didLoadSuccessfully: Bool) {
-        print("didLoadSuccessfully \(didLoadSuccessfully)")
-    }
-
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        controller.dismiss(animated: true) {
-            print("Do something")
-        }
-    }
-
 }
 
 extension DetailsViewController: UITableViewDataSource {
