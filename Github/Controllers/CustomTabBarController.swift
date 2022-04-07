@@ -23,7 +23,10 @@ class CustomTabBarController: UITabBarController {
         let favoritesVC = FavoritesViewController(titleNav: FavoritesConstants.titleNav)
         let teamDevVC = ListDevViewController(titleNav: TeamDevelopersConstants.titleNav)
 
-		self.viewControllers = [
+        let homeViewModel = HomeViewModel()
+        homeVC.viewModel = homeViewModel
+
+        self.viewControllers = [
             embledNav(viewController: homeVC,
                       title: HomeConstants.titleBar,
                       image: HomeConstants.iconBar),
