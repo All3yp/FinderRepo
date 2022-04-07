@@ -20,7 +20,6 @@ class ListDevViewController: UIViewController {
 		didSet {
 			DispatchQueue.main.async {
 				self.tableview.reloadData()
-				print(self.users)
 			}
 		}
 	}
@@ -100,9 +99,12 @@ extension ListDevViewController: UITableViewDataSource {
 		) as? DevTableViewCell else {
 			return UITableViewCell()
 		}
+
 		let user = users[indexPath.row]
 
-        cell.setup(name: user.profile.login ?? "No Login", photo: user.profile.avatarURL, job: user.profile.bio)
+        cell.setup(name: user.profile.login ?? ListDevViewControllerConstants.noLogin,
+                   photo: user.profile.avatarURL,
+                   job: user.profile.bio)
 		return cell
 	}
 

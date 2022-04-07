@@ -91,7 +91,6 @@ class DevTableViewCell: UITableViewCell {
 
 		if let photo = photo {
 			let url = URL(string: photo)
-			//     let processor = RoundCornerImageProcessor(cornerRadius: 35)
 			imageViewProfile.kf.setImage(with: url, placeholder: nil)
 		} else {
 			imageViewProfile.image = UIImage(systemName: "person")

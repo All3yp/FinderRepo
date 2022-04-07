@@ -8,15 +8,14 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
-    // MARK: Resolve enum, and private lets.
-    enum PickerConstants: String {
+    enum PickerStringConstants: String {
         case ascending = "asc"
         case descending = "desc"
     }
 
     private let pickerOptions = ["Ascendente", "Descendente"]
     private var orderingBy = "asc"
-    private let viewModel: HomeViewModel = HomeViewModel()
+    internal var viewModel: HomeViewModel?
 
     lazy var favoriteRepositories = GithubRepositories(
         totalCount: 0,
@@ -82,16 +81,15 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.delegate = self
+        viewModel?.delegate = self
         setupViewCode()
         setupView()
-        configureNavigationController()
-        viewModel.fetchRepositories(from: nil, orderingBy: orderingBy)
+        setupNavigationController()
+        viewModel?.fetchRepositories(from: nil, orderingBy: orderingBy)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        viewModel.fetchRepositories(from: nil, orderingBy: orderingBy)
         updateHomeView()
     }
 
@@ -106,11 +104,10 @@ class HomeViewController: UIViewController {
         tableView.reloadData()
     }
 
-    // MARK: Move to ViewModel
     private func setFavoritesStar() {
         let favRepositories = ManagedObjectContext.shared.listAllIds()
 
-        if let repositories = viewModel.repositories {
+        if let repositories = viewModel?.repositories {
             favoriteRepositories.items = repositories.items.map { repository in
                 var newRepository = repository
                 if favRepositories.contains(repository.id) {
@@ -121,7 +118,7 @@ class HomeViewController: UIViewController {
         }
     }
 
-    private func configureNavigationController() {
+    private func setupNavigationController() {
         navigationItem.searchController = searchController
 
         let filterBarButton = UIBarButtonItem(image: UIImage.init(systemName: "slider.horizontal.3"),
@@ -132,7 +129,6 @@ class HomeViewController: UIViewController {
         navigationItem.rightBarButtonItem?.tintColor = .black
     }
 
-    // MARK: Display ascd and desc Options? Anything else?
     @objc private func displayOptions() {
         setupPicker()
     }
@@ -142,7 +138,7 @@ class HomeViewController: UIViewController {
         pickerView.removeFromSuperview()
         orderingBy = pickerView.selectedRow(
             inComponent: 0
-        ) == 1 ? PickerConstants.descending.rawValue : PickerConstants.ascending.rawValue
+        ) == 1 ? PickerStringConstants.descending.rawValue : PickerStringConstants.ascending.rawValue
     }
 
     private func setupPicker() {
@@ -160,9 +156,9 @@ extension HomeViewController: ViewCode {
     func setupConstraints() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -0)
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
 }
@@ -176,14 +172,13 @@ extension HomeViewController: UITableViewDelegate {
             title: "Favoritar"
         ) { [weak self] (_, _, completion) in
 
-            // MARK: - BEDONE = Create method for get repository item from index
             if let repository = self?.favoriteRepositories.items[indexPath.row] {
                 var title = "Eba!"
                 var favoriteMessage = "Favoritado"
                 self?.handleMoveToFavorite(repository: repository)
                 if repository.isFavorite != nil {
                     if repository.isFavorite == true {
-                        title = "Poxa! :("
+                        title = "Poxa! 😔"
                         favoriteMessage = "Desfavoritado"
                     }
                 }
@@ -218,14 +213,27 @@ extension HomeViewController: UITableViewDelegate {
             ManagedObjectContext.shared.update(id: repo!.id, isFavorite: !repo!.isFavorite) { result in
 
                 if case .failure(let error) = result {
-                    // MARK: to be done Create Alert - suggestion: Create View extension to invoke the alert
-                    print(error.localizedDescription)
+                    let errorAlert = AppTheme.buildActionAllertDefault(
+                        allertTitle: "Erro ao favoritar repositório",
+                        message: error.localizedDescription,
+                        actionTitle: "Tentar Novamente",
+                        style: .destructive,
+                        handler: nil
+                    )
+                    present(errorAlert, animated: true, completion: nil)
                 }
             }
         } else {
             ManagedObjectContext.shared.create(repository: repository) { result in
                 if case .failure(let error) = result {
-                    print(error.localizedDescription)
+                    let errorAlert = AppTheme.buildActionAllertDefault(
+                        allertTitle: "Erro ao favoritar repositório",
+                        message: error.localizedDescription,
+                        actionTitle: "Tentar Novamente",
+                        style: .destructive,
+                        handler: nil
+                    )
+                    present(errorAlert, animated: true, completion: nil)
                 }
             }
         }
@@ -254,7 +262,7 @@ extension HomeViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let repositories = viewModel.repositories {
+        if let repositories = viewModel?.repositories {
             let selectedRepo = repositories.items[indexPath.row]
             let repoDetailController = DetailControllerFactory.makeDetailController(from: selectedRepo)
             navigationController?.pushViewController(repoDetailController, animated: true)
@@ -287,7 +295,7 @@ extension HomeViewController: UISearchResultsUpdating {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         guard let rawTypedText = searchBar.text else { return }
         let typedText = rawTypedText.lowercased()
-        viewModel.fetchRepositories(from: typedText, orderingBy: orderingBy)
+        viewModel?.fetchRepositories(from: typedText, orderingBy: orderingBy)
         DispatchQueue.main.async {
             searchBar.setShowsCancelButton(false, animated: true)
         }
