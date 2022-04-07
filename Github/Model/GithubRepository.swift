@@ -42,7 +42,7 @@ struct GithubRepository: Codable {
     let url: String
     let createdAt, updatedAt, pushedAt: String
     let size: Int
-    let language: String
+    let language: String?
     let forks, openIssues, watchers: Int
     let visibility: String
     let license: License?

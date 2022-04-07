@@ -15,13 +15,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 	func scene(_ scene: UIScene, willConnectTo session: UISceneSession,
 			     options connectionOptions: UIScene.ConnectionOptions) {
-
 		guard let windowScene = (scene as? UIWindowScene) else { return }
-        // MARK: Study and try to understand if we can use the window property rather than the config below
-        let window = UIWindow(windowScene: windowScene)
-		window.rootViewController = rootController
-		window.makeKeyAndVisible()
-		self.window = window
+        window = UIWindow(windowScene: windowScene)
+		window?.rootViewController = rootController
+		window?.makeKeyAndVisible()
 	}
 
 	func sceneDidDisconnect(_ scene: UIScene) {}
@@ -33,7 +30,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	func sceneWillEnterForeground(_ scene: UIScene) {}
 
 	func sceneDidEnterBackground(_ scene: UIScene) {
-
 		(UIApplication.shared.delegate as? AppDelegate)?.saveContext()
 	}
 }

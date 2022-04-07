@@ -52,5 +52,4 @@ extension DetailsView: ViewCode {
 		tableView.separatorStyle = .none
 		tableView.bounces = false
 	}
-
 }

@@ -13,32 +13,37 @@ class CustomTabBarController: UITabBarController {
 		super.viewDidLoad()
 
 		configTabbar()
-		tabBar.backgroundColor = .gray.withAlphaComponent(0.1)
-		self.selectedIndex = 3
+        tabBar.backgroundColor = TabBarColors.backgroundColor
+        selectedIndex = TabBarConstants.selectedIndex
 	}
 
 	private func configTabbar() {
 
-		let homeVC = HomeViewController(titleNav: "List")
-		let favoritesVC = FavoritesViewController(titleNav: "Favoritos")
-		let teamDevVC = ListDevViewController(titleNav: "Time de Desenvolvedores")
+        let homeVC = HomeViewController(titleNav: HomeConstants.titleNav)
+        let favoritesVC = FavoritesViewController(titleNav: FavoritesConstants.titleNav)
+        let teamDevVC = ListDevViewController(titleNav: TeamDevelopersConstants.titleNav)
 
 		self.viewControllers = [
-			embledNav(viewController: homeVC, title: "Home", image: "house.fill"),
-			embledNav(viewController: favoritesVC, title: "Favoritos", image: "star.fill"),
-			embledNav(viewController: teamDevVC, title: "Time", image: "person.2.fill")
+            embledNav(viewController: homeVC,
+                      title: HomeConstants.titleBar,
+                      image: HomeConstants.iconBar),
+            embledNav(viewController: favoritesVC,
+                      title: FavoritesConstants.titleBar,
+                      image: FavoritesConstants.iconBar),
+            embledNav(viewController: teamDevVC,
+                      title: TeamDevelopersConstants.titleBar,
+                      image: TeamDevelopersConstants.iconBar)
 		]
 	}
 
 	private func embledNav(
-		viewController: UIViewController,
-		title: String,
-		image: String
-	) -> UIViewController {
+        viewController: UIViewController,
+        title: String,
+        image: String
+    ) -> UIViewController {
 		let nav = UINavigationController(rootViewController: viewController)
 		nav.tabBarItem.title = title
 		nav.tabBarItem.image = UIImage(systemName: image)
 		return nav
 	}
-
 }

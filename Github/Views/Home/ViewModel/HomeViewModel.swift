@@ -7,47 +7,39 @@
 
 import Foundation
 
-// MVVM + Pop
-protocol HomeViewDelegate: AnyObject {
-	func didUpdateRepositories()
-}
-
 class HomeViewModel {
 
-	lazy var repositories = GithubRepositories(
-		totalCount: 0,
-		incompleteResults: false,
-		items: []
-	) {
-		didSet {
-			DispatchQueue.main.async { [weak self] in
-				self?.delegate?.didUpdateRepositories()
-			}
-		}
-	}
+    let defaultLanguage = "swift"
+    var repositories: GithubRepositories?
+    weak var delegate: HomeViewDelegate?
 
-	weak var delegate: HomeViewDelegate?
+    func fetchRepositories(from language: String?, orderingBy: String) {
+        GithubApi.shared.fetchRepositories(
+            from: language ?? defaultLanguage,
+            orderingBy: orderingBy
+        ) { response in
+            switch response {
+            case .success(let repositories):
+                self.didFetchRepositories(repositories)
+            case .failure(let error):
+                self.error(error)
+            }
+        }
+    }
 
-	func fetchRepositories() {
-		GithubApi.shared.getRepositories { response in
-			switch response {
-			case .success(let repositories):
-				self.repositories = repositories
-			case .failure(let error):
-				// MARK: Load Custom Error View!
-				print(error)
-			}
-		}
-	}
+    private func didFetchRepositories(_ repositories: GithubRepositories) {
+        self.repositories = repositories
+        delegate?.didUpdateRepositories()
+    }
 
-	func fetchRepositories(from language: String, orderingBy: String) {
-		GithubApi.shared.getRepositoriesfrom(language: language, orderingBy: orderingBy) { response in
-			switch response {
-			case .success(let repositories):
-				self.repositories = repositories
-			case .failure(let error):
-				print(error)
-			}
-		}
-	}
+    private func error(_ error: NetworkingServiceError) {
+        let errorAlert = AppTheme.buildActionAllertDefault(
+            allertTitle: "Erro ao pesquisar repositórios",
+            message: error.localizedError,
+            actionTitle: "Tentar Novamente",
+            style: .destructive,
+            handler: nil
+        )
+        delegate?.errorToFetchRepositories(errorAllert: errorAlert)
+    }
 }

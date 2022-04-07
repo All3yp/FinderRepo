@@ -6,18 +6,18 @@
 //
 
 import Foundation
+import Alamofire
 
 protocol GithubApiRepositoriesProtocol {
-    func getRepositories(completion: @escaping(Result<GithubRepositories, NetworkingServiceError>) -> Void)
-    func getRepositoriesfrom(language: String,
-                             orderingBy: String,
-                             completion: @escaping (Result<GithubRepositories, NetworkingServiceError>) -> Void)
-    // func getUsers()
+    func fetchRepositories(
+        from language: String,
+        orderingBy: String,
+        completion: @escaping (Result<GithubRepositories, NetworkingServiceError>) -> Void
+    )
 }
 
 final class GithubApi: GithubApiRepositoriesProtocol {
-    let repoURL = "https://api.github.com/search/repositories?q=stars:%3E=10000+language:swift&sort=stars&order=desc"
-	let profileURL = "https://api.github.com/users/"
+    let profileURL = "https://api.github.com/users/"
 
     private let networking: NetworkingService
 
@@ -31,7 +31,7 @@ final class GithubApi: GithubApiRepositoriesProtocol {
     }
 
 	func getProfile(named username: String, completion: @escaping (Result<GithubUser, NetworkingServiceError>) -> Void) {
-		networking.request(url: profileURL+username, method: "", of: GithubUser.self) { response in
+        networking.request(url: profileURL+username, method: HTTPMethod.get, of: GithubUser.self) { response in
 			switch response {
 			case .success(let user):
 				completion(.success(user))
@@ -41,25 +41,13 @@ final class GithubApi: GithubApiRepositoriesProtocol {
 		}
 	}
 
-    func getRepositories(completion: @escaping (Result<GithubRepositories, NetworkingServiceError>) -> Void) {
-        networking.request(url: repoURL, method: "", of: GithubRepositories.self) { response in
-
-            switch response {
-            case .success(let respositories):
-                completion(.success(respositories))
-            case .failure(let error):
-                completion(.failure(.requestError(error.localizedDescription)))
-            }
-        }
-    }
-
-    func getRepositoriesfrom(language: String,
-                             orderingBy: String,
-                             completion: @escaping (Result<GithubRepositories, NetworkingServiceError>) -> Void) {
+    func fetchRepositories(from language: String,
+                           orderingBy: String,
+                           completion: @escaping (Result<GithubRepositories, NetworkingServiceError>) -> Void) {
         let baseUrl = "https://api.github.com/search/repositories"
         let queryParams = "?q=stars:%3E=5000+language:\(language)&sort=stars&order=\(orderingBy)"
         let url = "\(baseUrl)\(queryParams)"
-        networking.request(url: url, method: "", of: GithubRepositories.self) { response in
+        networking.request(url: url, method: HTTPMethod.get, of: GithubRepositories.self) { response in
             switch response {
             case .success(let repositories):
                 completion(.success(repositories))
